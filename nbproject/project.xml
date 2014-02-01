@@ -5,8 +5,8 @@
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>DatabaseOverlayLib</name>
             <c-extensions/>
-            <cpp-extensions/>
-            <header-extensions/>
+            <cpp-extensions>cpp</cpp-extensions>
+            <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
@@ -21,7 +21,7 @@
                 </confElem>
                 <confElem>
                     <name>UnitTesting</name>
-                    <type>5</type>
+                    <type>4</type>
                 </confElem>
             </confList>
             <formatting>

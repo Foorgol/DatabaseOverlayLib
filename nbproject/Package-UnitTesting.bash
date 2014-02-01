@@ -13,8 +13,8 @@ CND_BUILDDIR=build
 CND_DLIB_EXT=so
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libDatabaseOverlayLib.so.1.0.0
-OUTPUT_BASENAME=libDatabaseOverlayLib.so.1.0.0
+OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/DatabaseOverlayLib
+OUTPUT_BASENAME=DatabaseOverlayLib
 PACKAGE_TOP_DIR=DatabaseOverlayLib/
 
 # Functions
