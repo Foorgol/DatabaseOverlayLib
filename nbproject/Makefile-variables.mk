@@ -22,6 +22,14 @@ CND_ARTIFACT_PATH_Release=dist/Release/CLang-Linux-x86/libDatabaseOverlayLib.so.
 CND_PACKAGE_DIR_Release=dist/Release/CLang-Linux-x86/package
 CND_PACKAGE_NAME_Release=DatabaseOverlayLib.tar
 CND_PACKAGE_PATH_Release=dist/Release/CLang-Linux-x86/package/DatabaseOverlayLib.tar
+# UnitTesting configuration
+CND_PLATFORM_UnitTesting=CLang-Linux-x86
+CND_ARTIFACT_DIR_UnitTesting=dist/UnitTesting/CLang-Linux-x86
+CND_ARTIFACT_NAME_UnitTesting=libDatabaseOverlayLib.so.1.0.0
+CND_ARTIFACT_PATH_UnitTesting=dist/UnitTesting/CLang-Linux-x86/libDatabaseOverlayLib.so.1.0.0
+CND_PACKAGE_DIR_UnitTesting=dist/UnitTesting/CLang-Linux-x86/package
+CND_PACKAGE_NAME_UnitTesting=DatabaseOverlayLib.tar
+CND_PACKAGE_PATH_UnitTesting=dist/UnitTesting/CLang-Linux-x86/package/DatabaseOverlayLib.tar
 #
 # include compiler specific variables
 #
