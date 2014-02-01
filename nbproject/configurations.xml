@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f2"
+                   displayName="BasicDatatypes"
+                   projectFiles="true"
+                   kind="ROOT">
+      <itemPath>Integer.cpp</itemPath>
+      <itemPath>Integer.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f1"
+                   displayName="Exceptions"
+                   projectFiles="true"
+                   kind="ROOT">
+      <itemPath>dbExceptions.cpp</itemPath>
+      <itemPath>dbExceptions.h</itemPath>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
@@ -12,6 +26,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="f3"
+                   displayName="Unit Testing"
+                   projectFiles="true"
+                   kind="ROOT">
+      <itemPath>tstInteger.cpp</itemPath>
+      <itemPath>tstInteger.h</itemPath>
+      <itemPath>unitTestMain.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -38,6 +60,20 @@
       </qt>
       <compileType>
       </compileType>
+      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="unitTestMain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="5">
       <toolsSet>
@@ -63,8 +99,22 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="unitTestMain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
-    <conf name="UnitTesting" type="5">
+    <conf name="UnitTesting" type="4">
       <toolsSet>
         <compilerSet>CLang|CLang</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -74,7 +124,27 @@
         <modules>core gui widgets</modules>
       </qt>
       <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>cppunit</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="unitTestMain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

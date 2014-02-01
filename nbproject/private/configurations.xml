@@ -68,7 +68,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="UnitTesting" type="5">
+    <conf name="UnitTesting" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>2</platform>

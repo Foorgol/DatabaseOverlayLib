@@ -1,15 +1,15 @@
 # This file is generated automatically. Do not edit.
 # Use project properties -> Build -> Qt -> Expert -> Custom Definitions.
-TEMPLATE = lib
+TEMPLATE = app
 DESTDIR = dist/UnitTesting/CLang-Linux-x86
 TARGET = DatabaseOverlayLib
 VERSION = 1.0.0
 CONFIG -= debug_and_release app_bundle lib_bundle
-CONFIG += dll debug 
+CONFIG += debug 
 PKGCONFIG +=
 QT = core gui widgets
-SOURCES +=
-HEADERS +=
+SOURCES += Integer.cpp dbExceptions.cpp tstInteger.cpp unitTestMain.cpp
+HEADERS += Integer.h dbExceptions.h tstInteger.h
 FORMS +=
 RESOURCES +=
 TRANSLATIONS +=
@@ -21,4 +21,4 @@ QMAKE_CC = clang
 QMAKE_CXX = clang++
 DEFINES += 
 INCLUDEPATH += 
-LIBS += 
+LIBS += -lcppunit -ldl  
