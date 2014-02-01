@@ -7,6 +7,7 @@
             <c-extensions/>
             <cpp-extensions/>
             <header-extensions/>
+            <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
@@ -18,8 +19,11 @@
                     <name>Release</name>
                     <type>5</type>
                 </confElem>
+                <confElem>
+                    <name>UnitTesting</name>
+                    <type>5</type>
+                </confElem>
             </confList>
-            <sourceEncoding>UTF-8</sourceEncoding>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
             </formatting>

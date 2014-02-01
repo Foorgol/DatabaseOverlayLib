@@ -64,5 +64,17 @@
         </asmTool>
       </compileType>
     </conf>
+    <conf name="UnitTesting" type="5">
+      <toolsSet>
+        <compilerSet>CLang|CLang</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <qt>
+        <modules>core gui widgets</modules>
+      </qt>
+      <compileType>
+      </compileType>
+    </conf>
   </confs>
 </configurationDescriptor>
