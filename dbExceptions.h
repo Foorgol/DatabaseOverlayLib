@@ -28,6 +28,20 @@ namespace dbOverlay {
         string descr;
 
     };
+    
+    class InvalidLogLevelException : public std::exception
+    {
+    public:
+        InvalidLogLevelException(int _lvl) : lvl(_lvl) {};
+
+        virtual ~InvalidLogLevelException() throw () {};
+        
+        const char* what() const throw ();
+
+    private:
+        int lvl;
+
+    };
 }
 
 #endif	/* OBJECTEMPTYEXCEPTION_H */

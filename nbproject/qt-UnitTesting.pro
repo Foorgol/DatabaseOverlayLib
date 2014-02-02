@@ -8,8 +8,8 @@ CONFIG -= debug_and_release app_bundle lib_bundle
 CONFIG += debug 
 PKGCONFIG +=
 QT = core gui widgets
-SOURCES += dbExceptions.cpp tstInteger.cpp unitTestMain.cpp
-HEADERS += Integer.h dbExceptions.h tstInteger.h
+SOURCES += Logger.cpp dbExceptions.cpp tstInteger.cpp unitTestMain.cpp
+HEADERS += Integer.h Logger.h dbExceptions.h tstInteger.h
 FORMS +=
 RESOURCES +=
 TRANSLATIONS +=
@@ -22,3 +22,9 @@ QMAKE_CXX = clang++
 DEFINES += 
 INCLUDEPATH += 
 LIBS += -lcppunit -ldl  
+equals(QT_MAJOR_VERSION, 4) {
+QMAKE_CXXFLAGS += -std=c++11
+}
+equals(QT_MAJOR_VERSION, 5) {
+CONFIG += c++11
+}

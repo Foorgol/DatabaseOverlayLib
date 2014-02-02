@@ -18,6 +18,8 @@
                    displayName="Header Files"
                    projectFiles="true">
     </logicalFolder>
+    <logicalFolder name="f4" displayName="Helper" projectFiles="true" kind="ROOT">
+    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
@@ -45,6 +47,8 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>Logger.cpp</itemPath>
+    <itemPath>Logger.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -58,8 +62,15 @@
         <modules>core gui widgets</modules>
       </qt>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
       </compileType>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Logger.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -82,6 +93,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -91,6 +103,10 @@
         </asmTool>
       </compileType>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Logger.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -107,6 +123,9 @@
         <modules>core gui widgets</modules>
       </qt>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>cppunit</linkerLibLibItem>
@@ -115,6 +134,10 @@
         </linkerTool>
       </compileType>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Logger.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>

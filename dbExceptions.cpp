@@ -25,5 +25,14 @@ namespace dbOverlay {
         msg += "contained no data!";
         return msg.c_str();
     }
+    
+    const char* InvalidLogLevelException::what() const throw () {
+        string msg = "The logging level ";
+        
+        msg += to_string(lvl);
+        
+        msg += " is invalid";
+        return msg.c_str();
+    }
 }
 
