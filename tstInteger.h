@@ -18,6 +18,7 @@
 class tstInteger : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE( tstInteger );
   CPPUNIT_TEST( testConstructor );
+  CPPUNIT_TEST( testSet );
   CPPUNIT_TEST_SUITE_END();
   
 public:
@@ -25,6 +26,7 @@ public:
     void tearDown() {}
     
     void testConstructor();
+    void testSet();
 
 };
 

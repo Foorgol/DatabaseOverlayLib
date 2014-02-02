@@ -33,3 +33,15 @@ void tstInteger::testConstructor()
     CPPUNIT_ASSERT(i1.hasValue() == true);
     CPPUNIT_ASSERT(i1.getValue() == 23);
 }
+
+void tstInteger::testSet()
+{
+    Integer i;
+    
+    CPPUNIT_ASSERT(i.hasValue() == false);
+    CPPUNIT_ASSERT_THROW(i.getValue(), dbOverlay::ObjectEmptyException);
+    
+    i.setValue(88);
+    CPPUNIT_ASSERT(i.hasValue() == true);
+    CPPUNIT_ASSERT(i.getValue() == 88);
+}
