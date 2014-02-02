@@ -13,18 +13,16 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+#include "BasicTestClass.h"
 #include "Integer.h"
 
-class tstInteger : public CppUnit::TestFixture {
+class tstInteger : public BasicTestClass {
   CPPUNIT_TEST_SUITE( tstInteger );
   CPPUNIT_TEST( testConstructor );
   CPPUNIT_TEST( testSet );
   CPPUNIT_TEST_SUITE_END();
   
 public:
-    void setUp() {}
-    void tearDown() {}
-    
     void testConstructor();
     void testSet();
 
