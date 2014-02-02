@@ -19,6 +19,8 @@
                    projectFiles="true">
     </logicalFolder>
     <logicalFolder name="f4" displayName="Helper" projectFiles="true" kind="ROOT">
+      <itemPath>Logger.cpp</itemPath>
+      <itemPath>Logger.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -32,6 +34,8 @@
                    displayName="Unit Testing"
                    projectFiles="true"
                    kind="ROOT">
+      <itemPath>BasicTestClass.cpp</itemPath>
+      <itemPath>BasicTestClass.h</itemPath>
       <itemPath>tstInteger.cpp</itemPath>
       <itemPath>tstInteger.h</itemPath>
       <itemPath>unitTestMain.cpp</itemPath>
@@ -47,8 +51,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>Logger.cpp</itemPath>
-    <itemPath>Logger.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -66,6 +68,10 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
+      <item path="BasicTestClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
@@ -102,6 +108,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="BasicTestClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
@@ -133,6 +143,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="BasicTestClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">

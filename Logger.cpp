@@ -46,7 +46,7 @@ namespace dbOverlay
         
         txt +=" - " + sender + ": " + msg;
         
-        qDebug() << txt << endl;
+        qDebug() << txt;
     }
     
     void Logger::log(const QString msg)
