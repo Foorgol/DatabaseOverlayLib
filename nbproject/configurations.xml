@@ -5,7 +5,6 @@
                    displayName="BasicDatatypes"
                    projectFiles="true"
                    kind="ROOT">
-      <itemPath>Integer.cpp</itemPath>
       <itemPath>Integer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1"
@@ -60,8 +59,6 @@
       </qt>
       <compileType>
       </compileType>
-      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
@@ -99,8 +96,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
@@ -131,8 +126,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Integer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
