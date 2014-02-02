@@ -14,7 +14,7 @@ using namespace std;
 
 namespace dbOverlay {
     
-    const char* ObjectEmptyException::what() const {
+    const char* ObjectEmptyException::what() const throw () {
         string msg = "The number object ";
         
         if (descr != "")
