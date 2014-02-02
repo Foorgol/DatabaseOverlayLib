@@ -65,12 +65,6 @@
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="unitTestMain.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="5">
       <toolsSet>
@@ -101,12 +95,6 @@
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="unitTestMain.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="UnitTesting" type="4">
