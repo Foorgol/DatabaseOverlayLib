@@ -43,6 +43,7 @@ namespace dbOverlay {
 
         void setValue(const T newVal) {
             myValue = newVal;
+            _hasValue = true;
         }
 
         bool hasValue() const
