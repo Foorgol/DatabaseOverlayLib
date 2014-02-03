@@ -32,10 +32,10 @@ public:
 protected:
   QString getTestDir ();
   QString genTestFilePath(QString fName);
-
-private:
   QTemporaryDir tstDir;
   dbOverlay::Logger *log;
+
+private:
 };
 
 #endif	/* BASICTESTCLASS_H */
