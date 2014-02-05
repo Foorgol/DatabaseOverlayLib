@@ -90,6 +90,10 @@ void tstGenericDatabase::testConstructorSQLite()
   // Make sure the db file does not exists
   CPPUNIT_ASSERT(!sqliteFileExists());
   
+  // create an in-memory database
+  SampleDB db3;
+  CPPUNIT_ASSERT(!sqliteFileExists());
+  
   // create a new, empty file
   SampleDB db(getSqliteFileName(), true);
   CPPUNIT_ASSERT(sqliteFileExists());
