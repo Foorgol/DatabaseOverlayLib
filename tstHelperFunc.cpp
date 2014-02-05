@@ -9,7 +9,9 @@
 #include "../qt4/QtCore/qvariant.h"
 
 #include <QVariantList>
+#include <QStringList>
 #include <qt/QtCore/qmetatype.h>
+#include <qt/QtCore/qstringlist.h>
 
 using namespace dbOverlay;
 
@@ -44,6 +46,11 @@ void tstHelperFunc::testCommaSepList()
   CPPUNIT_ASSERT(commaSepStringFromList(qvl) == "");
   qvl << "88";
   CPPUNIT_ASSERT(commaSepStringFromList(qvl) == ", 88");
+  
+  // test function call with string list
+  QStringList qsl;
+  qsl << "" << "a"  << "b" << "";
+  CPPUNIT_ASSERT(commaSepStringFromList(qsl) == ", a, b, ");
   
   printEndMsg();
 }

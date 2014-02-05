@@ -19,7 +19,7 @@ namespace dbOverlay
 {
   const string QString2String(const QString &inString);
   
-  QString commaSepStringFromList(const QList<QString>& lst);
+  QString commaSepStringFromList(const QStringList& lst);
   QString commaSepStringFromList(const QVariantList& lst);
 }
 #endif	/* HELPERFUNC_H */
