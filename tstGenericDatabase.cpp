@@ -11,11 +11,9 @@
 
 using namespace dbOverlay;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
-
 void tstGenericDatabase::testConstructorMySql()
 {
-  log->info("\n\n----------- Starting test case 'testConstructorMySql' -----------");
+  printStartMsg("testConstructorMySql");
   
   // open existing database using explicit parameters
   SampleDB db1(dbOverlay::GenericDatabase::MYSQL, "localhost", 3306, "unittest", "unittest", "unittest");
@@ -27,7 +25,7 @@ void tstGenericDatabase::testConstructorMySql()
   // open non-existing DB
   CPPUNIT_ASSERT_THROW(SampleDB db3(dbOverlay::GenericDatabase::MYSQL, "sdfjhsdf", 3306, "unittest", "unittest", "unittest"), std::runtime_error);
 
-  log->info("----------- End test case 'testConstructorMySql' -----------");
+  printEndMsg();
   
 }
 
@@ -35,7 +33,7 @@ void tstGenericDatabase::testConstructorMySql()
 
 void tstGenericDatabase::testPopulate()
 {
-  log->info("\n\n----------- Starting test case 'testPopulate' -----------");
+  printStartMsg("testPopulate");
   
   cleanupMysql();
   SampleDB db(dbOverlay::GenericDatabase::MYSQL, "localhost", 3306, "unittest", "unittest", "unittest");
@@ -80,10 +78,35 @@ void tstGenericDatabase::testPopulate()
   CPPUNIT_ASSERT(qry.value(1).toString() == "v1");
   CPPUNIT_ASSERT(!qry.next());
   
-  log->info("----------- End test case 'testPopulate' -----------");
+  printEndMsg();
 }
 
 //----------------------------------------------------------------------------
+
+void tstGenericDatabase::testConstructorSQLite()
+{
+  printStartMsg("testConstructorSQLite");
+
+  // Make sure the db file does not exists
+  CPPUNIT_ASSERT(!sqliteFileExists());
+  
+  // create a new, empty file
+  SampleDB db(getSqliteFileName(), true);
+  CPPUNIT_ASSERT(sqliteFileExists());
+  
+  // close the connection
+  db.close();
+  
+  // open an existing file
+  SampleDB db1(getSqliteFileName(), false);
+  db1.close();
+  
+  // try to open a non-existing file
+  CPPUNIT_ASSERT_THROW(SampleDB db2("dfkjsdfhksd", false), std::runtime_error);
+
+  printEndMsg();
+  
+}
 
 //----------------------------------------------------------------------------
 

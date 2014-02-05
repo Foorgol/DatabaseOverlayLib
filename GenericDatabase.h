@@ -54,6 +54,8 @@ namespace dbOverlay
     void tableCreationHelper(const QString& tabName, const QList<QString>& colDefs);
     void viewCreationHelper(const QString& viewName, const QString& selectStmt);
     
+    void close();
+    
     
   private:
     void dumpError(QSqlQuery *qry, bool throwException = false);

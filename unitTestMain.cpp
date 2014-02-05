@@ -11,6 +11,19 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include "tstInteger.h"
+#include "tstGenericDatabase.h"
+
+// comment / uncomment the following to execute just one suite
+//#define TEST_ALL_SUITES
+
+// Registers the fixture into the 'registry'
+#ifdef TEST_ALL_SUITES
+  CPPUNIT_TEST_SUITE_REGISTRATION( tstInteger );
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+#else
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+#endif
+
 
 int main(int argc, char *argv[]) {
     // initialize resources, if needed
