@@ -22,6 +22,7 @@ namespace dbOverlay
   QString commaSepStringFromList(const QVariantList& lst)
   {
     QString result;
+    bool hasElements = false;
     
     for (int i=0; i<lst.size(); i++)
     {
@@ -38,13 +39,14 @@ namespace dbOverlay
         qDebug() << "commaSepStringFromList: can't convert element at index " + QString::number(i) + " to QString";
         result += "<Not convertable to QString>";
       } else {
+        if (hasElements)
+        {
+          result += ", ";
+        }
         result += v.toString();
       }
       
-      if (i != (lst.size()-1))
-      {
-        result += ", ";
-      }
+      hasElements = true;
     }
     
     return result;
