@@ -21,11 +21,13 @@
 class tstGenericDatabase : public DatabaseTestScenario {
   CPPUNIT_TEST_SUITE( tstGenericDatabase );
   CPPUNIT_TEST( testConstructorMySql );
+  CPPUNIT_TEST( testConstructorSQLite );
   CPPUNIT_TEST( testPopulate );
   CPPUNIT_TEST_SUITE_END();
   
 public:
     void testConstructorMySql();
+    void testConstructorSQLite();
     void testPopulate();
     
 

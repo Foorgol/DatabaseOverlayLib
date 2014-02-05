@@ -153,13 +153,18 @@ namespace dbOverlay
     
   GenericDatabase::~GenericDatabase()
   {
-    conn.close();
-    
-    conn.removeDatabase(internalConnectionName);
-
-    log->info("Database connection to " + dbServer + " closed.");
+    close();
 
     delete log;
+  }
+    
+//----------------------------------------------------------------------------
+    
+  void GenericDatabase::close()
+  {
+    conn.close();
+    conn.removeDatabase(internalConnectionName);
+    log->info("Database connection to " + dbServer + " closed.");
   }
     
 //----------------------------------------------------------------------------

@@ -34,8 +34,11 @@ protected:
   QString genTestFilePath(QString fName);
   QTemporaryDir tstDir;
   dbOverlay::Logger *log;
+  void printStartMsg(QString);
+  void printEndMsg();
 
 private:
+  QString tcName;
 };
 
 #endif	/* BASICTESTCLASS_H */
