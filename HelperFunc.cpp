@@ -8,6 +8,8 @@
 #include "HelperFunc.h"
 
 #include <QtCore>
+#include <QStringList>
+#include <QVariantList>
 
 namespace dbOverlay
 {
@@ -54,7 +56,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
     
-  QString commaSepStringFromList(const QList<QString>& lst)
+  QString commaSepStringFromList(const QStringList& lst)
   {
     QVariantList qvl;
     for (int i=0; i<lst.size(); i++)
