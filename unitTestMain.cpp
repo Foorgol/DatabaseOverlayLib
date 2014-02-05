@@ -12,6 +12,7 @@
 
 #include "tstInteger.h"
 #include "tstGenericDatabase.h"
+#include "tstHelperFunc.h"
 
 // comment / uncomment the following to execute just one suite
 //#define TEST_ALL_SUITES
@@ -20,8 +21,10 @@
 #ifdef TEST_ALL_SUITES
   CPPUNIT_TEST_SUITE_REGISTRATION( tstInteger );
   CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstHelperFunc);
 #else
-  CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+  //CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstHelperFunc);
 #endif
 
 
