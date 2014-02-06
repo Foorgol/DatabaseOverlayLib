@@ -399,6 +399,13 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
+  /**
+   * Checks whether the DB contains a specific view or table
+   * 
+   * @param name is the name of the view / table to look for
+   * @param isView must be set to true if "name" refers to a view
+   * @return true if the database contains the table / view named "name"
+   */
   bool GenericDatabase::hasTable(const QString& name, bool isView)
   {
     QStringList allNames = allTableNames(isView);
@@ -407,13 +414,30 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
+  /**
+   * Checks whether the DB contains a specific view
+   * 
+   * @param viewName is the name of the view to look for
+   * @return true if the database contains the view named "name"
+   */
   bool GenericDatabase::hasView(const QString& name)
   {
     return hasTable(name, true);
   }
     
 //----------------------------------------------------------------------------
-    
+
+  /**
+   * Helper function to create a FOREIGN-KEY-statement for CREATE TABLE purposes
+   * 
+   * @param keyName the of the column which will reference to the other table
+   * @param referedTable the name of the table to which id-column we will refer to
+   * @return the string with the FOREIGN KEY statement
+   */
+  QString GenericDatabase::genForeignKeyClause(QString keyName, QString referedTable)
+  {
+    return keyName + " INTEGER, FOREIGN KEY (" + keyName + ") REFERENCES " + referedTable + "(id)";
+  }
     
 //----------------------------------------------------------------------------
     
