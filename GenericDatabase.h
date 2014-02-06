@@ -61,6 +61,9 @@ namespace dbOverlay
     QStringList allTableNames(bool getViews=false);
     QStringList allViewNames();
     
+    long getQueryCounter();
+    void resetQueryCounter();
+    
     
   private:
     void dumpError(QSqlQuery *qry, bool throwException = false);
