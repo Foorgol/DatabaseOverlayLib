@@ -65,6 +65,7 @@ namespace dbOverlay
     void resetQueryCounter();
     bool hasTable(const QString& name, bool isView=false);
     bool hasView(const QString& name);
+    static QString genForeignKeyClause(QString keyName, QString referedTable);
     
     
   private:
