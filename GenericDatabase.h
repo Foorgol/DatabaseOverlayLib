@@ -63,6 +63,8 @@ namespace dbOverlay
     
     long getQueryCounter();
     void resetQueryCounter();
+    bool hasTable(const QString& name, bool isView=false);
+    bool hasView(const QString& name);
     
     
   private:

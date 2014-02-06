@@ -398,10 +398,19 @@ namespace dbOverlay
   }
     
 //----------------------------------------------------------------------------
-    
+
+  bool GenericDatabase::hasTable(const QString& name, bool isView)
+  {
+    QStringList allNames = allTableNames(isView);
+    return allNames.contains(name);
+  }
     
 //----------------------------------------------------------------------------
-    
+
+  bool GenericDatabase::hasView(const QString& name)
+  {
+    return hasTable(name, true);
+  }
     
 //----------------------------------------------------------------------------
     

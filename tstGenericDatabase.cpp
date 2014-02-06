@@ -151,6 +151,38 @@ void tstGenericDatabase::testGetTableNames()
 
 //----------------------------------------------------------------------------
 
+void tstGenericDatabase::testHasTable()
+{
+  printStartMsg("testHasTable");
+
+  QList<dbOverlay::GenericDatabase::DB_ENGINE> dbTypes;
+  dbTypes.append(dbOverlay::GenericDatabase::SQLITE);
+  dbTypes.append(dbOverlay::GenericDatabase::MYSQL);
+  
+  QList<dbOverlay::GenericDatabase::DB_ENGINE>::iterator i;
+  for (i = dbTypes.begin(); i != dbTypes.end(); ++i)
+  {
+    SampleDB db = getScenario01(*i);
+    
+    CPPUNIT_ASSERT(db.hasTable("t1"));
+    CPPUNIT_ASSERT(!db.hasTable("sadasda"));
+    CPPUNIT_ASSERT(!db.hasTable(""));
+    CPPUNIT_ASSERT(!db.hasTable(QString::null));
+    
+    CPPUNIT_ASSERT(db.hasView("v1"));
+    CPPUNIT_ASSERT(!db.hasView("sadasda"));
+    CPPUNIT_ASSERT(!db.hasView(""));
+    CPPUNIT_ASSERT(!db.hasView(QString::null));
+    
+    // remove the connection of the "Object under test"
+    db.close();
+    
+    // remove the connection of the unittest framework
+    removeDbConn();
+  }  
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 
