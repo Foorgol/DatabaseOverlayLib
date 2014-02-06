@@ -11,6 +11,7 @@
 
 #include <QList>
 #include <qt/QtCore/qstringlist.h>
+#include <qt/QtCore/qmetatype.h>
 
 using namespace dbOverlay;
 
@@ -186,6 +187,37 @@ void tstGenericDatabase::testHasTable()
 
 //----------------------------------------------------------------------------
 
+void tstGenericDatabase::testExecScalarQuery()
+{
+  printStartMsg("testExecScalarQuery");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  
+  // test invalid query
+  QVariant result = db.execScalarQuery("sdkfhsdkf");
+  CPPUNIT_ASSERT(!result.isValid());
+  
+  // test query that returns no data
+  // use the chance to test sql statement construction as well
+  QVariantList params;
+  params << 456;
+  result = db.execScalarQuery("SELECT id FROM t1 WHERE i>?", params);
+  CPPUNIT_ASSERT(!result.isValid());
+  
+  // test valid query with result
+  params.clear();
+  params << 84;
+  result = db.execScalarQuery("SELECT count(id) FROM t1 WHERE i=?", params);
+  CPPUNIT_ASSERT(result.isValid());
+  CPPUNIT_ASSERT(result.toInt() == 3);
+  
+  // test valid query with result that contains more than one row
+  result = db.execScalarQuery("SELECT * FROM t1 WHERE f IS NULL");
+  CPPUNIT_ASSERT(result.isValid());
+  CPPUNIT_ASSERT(result.toInt() == 3);  // the row ID of the first result row
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

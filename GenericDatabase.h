@@ -48,6 +48,7 @@ namespace dbOverlay
     
     int execNonQuery(const QString& baseSqlStatement, const QVariantList& params);
     int execNonQuery(const QString& baseSqlStatement);
+    QVariant execScalarQuery(const QString& baseSqlStatement, const QVariantList& params = QVariantList());
     void enforceSynchronousWrites(bool syncOn);
     
     virtual void populateTables() = 0;
