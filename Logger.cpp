@@ -20,6 +20,11 @@ namespace dbOverlay
         info("####### '" + sender + "' stops logging #####");
     }
     
+    Logger::Logger()
+    {
+      sender = "<<invalid>>";
+    }
+    
     void Logger::warn (const QString msg)
     {
         log(LVL_WARN, msg);

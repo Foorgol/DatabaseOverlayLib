@@ -11,7 +11,7 @@
 #include <QFile>
 #include <QtSql/QSqlError>
 
-QSqlDatabase DatabaseTestScenario::getDbConn(dbOverlay::GenericDatabase::DB_ENGINE t, bool inMemory)
+QSqlDatabase DatabaseTestScenario::getDbConn(dbOverlay::GenericDatabase::DB_ENGINE t)
 {
   if (QSqlDatabase::contains(DB_CONNECTION_NAME))
   {
@@ -35,16 +35,7 @@ QSqlDatabase DatabaseTestScenario::getDbConn(dbOverlay::GenericDatabase::DB_ENGI
   {
     db = QSqlDatabase::addDatabase("QSQLITE", DB_CONNECTION_NAME);
 
-    QString fName;
-    if (inMemory)
-    {
-      fName = ":memory:";
-    } else
-    {
-      fName = getSqliteFileName();
-    }
-
-    db.setDatabaseName(fName);
+    db.setDatabaseName(getSqliteFileName());
     
   } else {
     
@@ -59,10 +50,10 @@ QSqlDatabase DatabaseTestScenario::getDbConn(dbOverlay::GenericDatabase::DB_ENGI
   if (!db.open())
   {
     QSqlError err = db.lastError();
-    log->warn("db.open() for " + db.hostName() + " using driver " + db.driverName() + " failed with: " + err.text());
+    log.warn("db.open() for " + db.hostName() + " using driver " + db.driverName() + " failed with: " + err.text());
     CPPUNIT_ASSERT(false);
   } else {
-    log->info("db.open() for " + db.hostName() + " using driver " + db.driverName() + " succeeded!");
+    log.info("db.open() for " + db.hostName() + " using driver " + db.driverName() + " succeeded!");
   }
   
   // despite providing the database name using setDatabaseName,
@@ -151,21 +142,18 @@ bool DatabaseTestScenario::sqliteFileExists()
 
 //----------------------------------------------------------------------------
 
-void DatabaseTestScenario::prepScenario01(dbOverlay::GenericDatabase::DB_ENGINE t, bool inMemory)
+void DatabaseTestScenario::prepScenario01(dbOverlay::GenericDatabase::DB_ENGINE t)
 {
   QSqlDatabase db;
   
   if (t == dbOverlay::GenericDatabase::MYSQL)
   {
     cleanupMysql();
-    db = getDbConn();
+    db = getDbConn(t);
   } else {
-    CPPUNIT_ASSERT_ASSERTION_FAIL(sqliteFileExists());
-    db = getDbConn(t, inMemory);
-    if (!inMemory)
-    {
-      CPPUNIT_ASSERT(sqliteFileExists());
-    }
+    CPPUNIT_ASSERT(!sqliteFileExists());
+    db = getDbConn(t);
+    CPPUNIT_ASSERT(sqliteFileExists());
   }
 
   QString aiStr = (t == dbOverlay::GenericDatabase::MYSQL) ? "AUTO_INCREMENT" : "AUTOINCREMENT";
@@ -206,7 +194,7 @@ void DatabaseTestScenario::execQueryAndDumpError(QSqlQuery& qry, const QString& 
     QString msg = "The following SQL query failed: " + QString("\n");
     msg += "     " + qry.lastQuery() + QString("\n");
     msg += "     Error: " + qry.lastError().text()  + QString("\n");
-    log->warn(msg);
+    log.warn(msg);
     CPPUNIT_ASSERT(false);
   } else {
     
@@ -223,13 +211,30 @@ void DatabaseTestScenario::execQueryAndDumpError(QSqlQuery& qry, const QString& 
     QString msg = "The following SQL query was successfully executed: " + QString("\n");
     msg += "     " + qry.lastQuery() + QString("\n");
     msg += "     Rows affected: " + QString::number(result)  + QString("\n");
-    log->info(msg);  
+    log.info(msg);  
 
   }
 }
 
 //----------------------------------------------------------------------------
-    
+
+SampleDB DatabaseTestScenario::getScenario01(dbOverlay::GenericDatabase::DB_ENGINE t)
+{
+  prepScenario01(t);
+  
+  if (t == dbOverlay::GenericDatabase::MYSQL)
+  {
+    SampleDB db(t, "localhost", 3306, "unittest", "unittest", "unittest");
+    db.populateTables();
+    db.populateViews();
+    return db;
+  }
+
+  SampleDB db(getSqliteFileName(), false);
+  db.populateTables();
+  db.populateViews();
+  return db;
+}
 
 //----------------------------------------------------------------------------
     
