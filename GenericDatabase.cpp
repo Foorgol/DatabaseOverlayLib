@@ -206,9 +206,12 @@ namespace dbOverlay
     QSqlQuery *qry = prepStatement(baseSqlStatement, params);
     
     bool ok = qry->exec();
+    queryCounter++;
+    
     if (!ok)
     {
       dumpError(qry);
+      delete qry;
       return -1;
     }
     
@@ -228,6 +231,37 @@ namespace dbOverlay
     
     return result;
   }
+    
+//----------------------------------------------------------------------------
+
+  QVariant GenericDatabase::execScalarQuery(const QString& baseSqlStatement, const QVariantList& params)
+  {
+    QSqlQuery *qry = prepStatement(baseSqlStatement, params);
+    
+    bool ok = qry->exec();
+    queryCounter++;
+    
+    if (!ok)
+    {
+      dumpError(qry);
+      delete qry;
+      return QVariant(); // invalid QVariant indicates error
+    }
+    
+    if (!(qry->first()))
+    {
+      log.warn("Scalar Query returned no data!" + QString("\n") + "     " + qry->lastQuery() + QString("\n"));
+      delete qry;
+      return QVariant(); // invalid QVariant indicates error
+    }
+    
+    QVariant result = qry->value(0);
+    delete qry;
+    return result;
+  }
+    
+//----------------------------------------------------------------------------
+
     
 //----------------------------------------------------------------------------
 
