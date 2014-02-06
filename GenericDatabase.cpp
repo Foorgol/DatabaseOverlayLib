@@ -339,6 +339,12 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  /**
+   * Return a list of all views or all tables in the database
+   * 
+   * @param getViews must be set to true to return view names; table names otherwise
+   * @return a QStringList of strings with names
+   */
   QStringList GenericDatabase::allTableNames(bool getViews)
   {
     if (getViews)
@@ -360,16 +366,36 @@ namespace dbOverlay
   
 //----------------------------------------------------------------------------
 
+  /**
+   * Returns a list of all views in the database
+   * 
+   * @return the view names as QStringList
+   */
   QStringList GenericDatabase::allViewNames()
   {
     return allTableNames(true);
   }
     
 //----------------------------------------------------------------------------
-    
+
+  /**
+   * Get the current query counter
+   * @return the current query counter
+   */
+  long GenericDatabase::getQueryCounter()
+  {
+    return queryCounter;
+  }
     
 //----------------------------------------------------------------------------
-    
+
+  /**
+   * Reset the query counter to zero
+   */
+  void GenericDatabase::resetQueryCounter()
+  {
+    queryCounter = 0;
+  }
     
 //----------------------------------------------------------------------------
     
