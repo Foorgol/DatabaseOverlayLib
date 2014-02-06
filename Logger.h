@@ -8,18 +8,17 @@
 #ifndef LOGGER_H
 #define	LOGGER_H
 
-#include <QCoreApplication>
+#include <QString>
 #include <QtCore>
 
 namespace dbOverlay
 {
 
-  class Logger : public QObject
+  class Logger
   {
-    Q_OBJECT
-
   public:
     Logger (QString senderName);
+    Logger ();
     virtual ~Logger ();
 
     void warn (const QString msg);
@@ -30,9 +29,9 @@ namespace dbOverlay
     void setDefaultLevel(const int newDefaultLvl);
     void setLevel(const int newLvl);
     
-    const int LVL_CRITICAL = 2;
-    const int LVL_WARN = 1;
-    const int LVL_INFO = 0;
+    static const int LVL_CRITICAL = 2;
+    static const int LVL_WARN = 1;
+    static const int LVL_INFO = 0;
     
   private:
 

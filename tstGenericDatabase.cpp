@@ -9,6 +9,9 @@
 
 #include <stdexcept>
 
+#include <QList>
+#include <qt/QtCore/qstringlist.h>
+
 using namespace dbOverlay;
 
 void tstGenericDatabase::testConstructorMySql()
@@ -62,7 +65,7 @@ void tstGenericDatabase::testPopulate()
   db1.populateViews();
 
   // make sure all tables have been created
-  dbDirect = getDbConn(dbOverlay::GenericDatabase::SQLITE, false);
+  dbDirect = getDbConn(dbOverlay::GenericDatabase::SQLITE);
   qry = QSqlQuery(dbDirect);
   CPPUNIT_ASSERT(dbDirect.driverName() == "QSQLITE");
   execQueryAndDumpError(qry, "SELECT * FROM sqlite_master WHERE type='table'");
@@ -114,6 +117,37 @@ void tstGenericDatabase::testConstructorSQLite()
 
 //----------------------------------------------------------------------------
 
+void tstGenericDatabase::testGetTableNames()
+{
+  printStartMsg("testGetTableNames");
+  
+  QList<dbOverlay::GenericDatabase::DB_ENGINE> dbTypes;
+  dbTypes.append(dbOverlay::GenericDatabase::SQLITE);
+  dbTypes.append(dbOverlay::GenericDatabase::MYSQL);
+  
+  QList<dbOverlay::GenericDatabase::DB_ENGINE>::iterator i;
+  for (i = dbTypes.begin(); i != dbTypes.end(); ++i)
+  {
+    SampleDB db = getScenario01(*i);
+    
+    QStringList allTabs = db.allTableNames();
+    CPPUNIT_ASSERT_EQUAL(2, allTabs.length());
+    CPPUNIT_ASSERT(allTabs.contains("t1"));
+    CPPUNIT_ASSERT(allTabs.contains("t2"));
+    
+    QStringList allViews = db.allViewNames();
+    CPPUNIT_ASSERT_EQUAL(1, allViews.length());
+    CPPUNIT_ASSERT(allViews.contains("v1"));
+    
+    // remove the connection of the "Object under test"
+    db.close();
+    
+    // remove the connection of the unittest framework
+    removeDbConn();
+  }
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

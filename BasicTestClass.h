@@ -33,7 +33,7 @@ protected:
   QString getTestDir ();
   QString genTestFilePath(QString fName);
   QTemporaryDir tstDir;
-  dbOverlay::Logger *log;
+  dbOverlay::Logger log;
   void printStartMsg(QString);
   void printEndMsg();
 

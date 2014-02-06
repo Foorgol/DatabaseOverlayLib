@@ -13,6 +13,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QList>
+#include <QStringList>
 #include <QVariant>
 
 #include "Logger.h"
@@ -41,6 +42,7 @@ namespace dbOverlay
     GenericDatabase ();
     GenericDatabase(QString sqliteFileName, bool createNew);
     GenericDatabase(DB_ENGINE t, QString srv, int port, QString name, QString user, QString pw);
+    GenericDatabase (const GenericDatabase& other);
     
     virtual ~GenericDatabase ();
     
@@ -56,6 +58,9 @@ namespace dbOverlay
     
     void close();
     
+    QStringList allTableNames(bool getViews=false);
+    QStringList allViewNames();
+    
     
   private:
     void dumpError(QSqlQuery *qry, bool throwException = false);
@@ -69,7 +74,7 @@ namespace dbOverlay
     /**
      * A logger for error messages
      */
-    Logger *log;
+    Logger log;
 
     /**
      * The connection object for the database handled by this class
@@ -111,8 +116,8 @@ namespace dbOverlay
      */
     long queryCounter = 0;
 
-    const int FAKED_PORT_NUM_FOR_CREATING_NEW_SQLITE_FILE = -100;
-    const int FAKED_PORT_NUM_FOR_OPENING_EXISTING_SQLITE_FILE = -200;
+    static const int FAKED_PORT_NUM_FOR_CREATING_NEW_SQLITE_FILE = -100;
+    static const int FAKED_PORT_NUM_FOR_OPENING_EXISTING_SQLITE_FILE = -200;
     
     void initDB(DB_ENGINE t, QString srv, int port, QString name, QString user, QString pw);
     

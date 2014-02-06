@@ -19,7 +19,7 @@ void BasicTestClass::setUp()
 {
   qDebug() << "\n\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n";
 
-  log = new dbOverlay::Logger("UnitTest");
+  log = dbOverlay::Logger("UnitTest");
 
   // create a dir for temporary files created during testing
   if (!(tstDir.isValid()))
@@ -27,7 +27,7 @@ void BasicTestClass::setUp()
     throw std::runtime_error("Could not create temporary directory for test files!");
   }
 
-  log->info("Created directory " + tstDir.path() + " for temporary files");
+  log.info("Created directory " + tstDir.path() + " for temporary files");
 }
 
 void BasicTestClass::tearDown()
@@ -41,9 +41,7 @@ void BasicTestClass::tearDown()
     throw std::runtime_error(ba.data());
   }
 
-  log->info("Deleted temporary directory " + tstDir.path() + " and all its contents");
-
-  delete log;
+  log.info("Deleted temporary directory " + tstDir.path() + " and all its contents");
 }
 
 QString BasicTestClass::getTestDir()
@@ -62,10 +60,10 @@ QString BasicTestClass::genTestFilePath(QString fName)
 void BasicTestClass::printStartMsg(QString _tcName)
 {
   tcName = _tcName;
-  log->info("\n\n----------- Starting test case '" + tcName + "' -----------");
+  log.info("\n\n----------- Starting test case '" + tcName + "' -----------");
 }
 
 void BasicTestClass::printEndMsg()
 {
-  log->info("----------- End test case '" + tcName + "' -----------\n\n");
+  log.info("----------- End test case '" + tcName + "' -----------\n\n");
 }

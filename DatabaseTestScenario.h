@@ -33,12 +33,13 @@ protected:
 
   const QString SQLITE_DB = "SqliteTestDB.db";
 
-  QSqlDatabase getDbConn(dbOverlay::GenericDatabase::DB_ENGINE t, bool inMemory = true);
+  QSqlDatabase getDbConn(dbOverlay::GenericDatabase::DB_ENGINE t);
   QSqlDatabase getDbConn();
   void removeDbConn();
   void cleanupMysql();
   
-  void prepScenario01(dbOverlay::GenericDatabase::DB_ENGINE t, bool inMemory = true);
+  void prepScenario01(dbOverlay::GenericDatabase::DB_ENGINE t);
+  SampleDB getScenario01(dbOverlay::GenericDatabase::DB_ENGINE t);
   
   void execQueryAndDumpError(QSqlQuery& qry, const QString& sqlStatement="");
 

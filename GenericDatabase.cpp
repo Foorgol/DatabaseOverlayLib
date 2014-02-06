@@ -12,7 +12,9 @@
 
 #include <QtCore>
 #include <QFile>
+#include <QtSql>
 #include <QtSql/QSqlError>
+#include <qt/QtCore/qstringlist.h>
 
 using namespace std;
 
@@ -50,7 +52,28 @@ namespace dbOverlay
   }
 
 //----------------------------------------------------------------------------
-    
+  
+  /**
+   * Explicit copy constructor, because Q_OBJECT automatically disables default copy constructors
+   */
+  GenericDatabase::GenericDatabase(const GenericDatabase& other) :
+          internalConnectionName(other.internalConnectionName + "(copy)"),
+          log(other.log),
+          conn(other.conn),
+          dbUser(other.dbUser),
+          dbPasswd(other.dbPasswd),
+          dbName(other.dbName),
+          dbType(other.dbType),
+          dbServer(other.dbServer),
+          dbPort(other.dbPort),
+          queryCounter(other.queryCounter)
+  {
+
+  }
+
+
+//----------------------------------------------------------------------------
+  
   /**
    * Does the real initialization work. Is called from various constructors with different
    * parameter combinations.
@@ -71,13 +94,13 @@ namespace dbOverlay
     dbPasswd = pw;
     dbPort = port;
 
-    // initialize the logger
-    log = new Logger ("DB Overlay");
-    
     // generate an internal name for this connection
     internalConnectionName = QString::number(connectionCounter);
     connectionCounter++;
 
+    // initialize the logger
+    log = Logger ("DB Overlay (connection " + internalConnectionName + ")");
+    
     if (t == SQLITE)
     {
       dbName = QString::null;
@@ -89,7 +112,7 @@ namespace dbOverlay
       if ((!f.exists()) && (port == FAKED_PORT_NUM_FOR_OPENING_EXISTING_SQLITE_FILE))
       {
         QString msg = "Database file " + srv + " does not exist and a new file shall not be created";
-        log->critical(msg);
+        log.critical(msg);
         throw runtime_error(QString2String(msg));
       }
 
@@ -98,11 +121,11 @@ namespace dbOverlay
       if (!conn.open())
       {
         QString msg = "Database file " + srv + " could not be opened or created!";
-        log->critical(msg);
+        log.critical(msg);
         throw runtime_error(QString2String(msg));
       }
       
-      log->info("Successfully opened / created database file " + srv);
+      log.info("Successfully opened / created database file " + srv);
 
       // reset the dbPort num
       dbPort = -1;
@@ -134,16 +157,16 @@ namespace dbOverlay
       if (!conn.open())
       {
         QString msg = "Could not open database " + dbName + " on server " + srv;
-        log->critical(msg);
+        log.critical(msg);
         throw runtime_error(QString2String(msg));
       }
       
-      log->info("Successfully opened database " + dbName + " on server " + srv);
+      log.info("Successfully opened database " + dbName + " on server " + srv);
     }
     else
     {
       QString msg = "Unknown database type!";
-      log->critical(msg);
+      log.critical(msg);
       throw runtime_error(QString2String(msg));
     }
 
@@ -153,9 +176,11 @@ namespace dbOverlay
     
   GenericDatabase::~GenericDatabase()
   {
-    close();
-
-    delete log;
+    // Do not call close() from destructor, or else copy-constructors don't
+    // work anymore.
+    //
+    // So we have to call close() explicitly on application level)
+    //close();
   }
     
 //----------------------------------------------------------------------------
@@ -164,7 +189,7 @@ namespace dbOverlay
   {
     conn.close();
     conn.removeDatabase(internalConnectionName);
-    log->info("Database connection to " + dbServer + " closed.");
+    log.info("Database connection to " + dbServer + " closed.");
   }
     
 //----------------------------------------------------------------------------
@@ -211,7 +236,7 @@ namespace dbOverlay
     QString msg = "The following SQL query failed: " + QString("\n");
     msg += "     " + qry->lastQuery() + QString("\n");
     msg += "     Error: " + qry->lastError().text()  + QString("\n");
-    log->warn(msg);
+    log.warn(msg);
     
     if (throwException)
     {
@@ -226,7 +251,7 @@ namespace dbOverlay
     QString msg = "The following SQL query was successfully executed: " + QString("\n");
     msg += "     " + qry->lastQuery() + QString("\n");
     msg += "     Rows affected: " + QString::number(result)  + QString("\n");
-    log->info(msg);  
+    log.info(msg);  
   }
     
 //----------------------------------------------------------------------------
@@ -247,6 +272,11 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
+  /**
+   * Enables or disables synchronous writes for SQLite databases. Has no effect for other database systems.
+   * 
+   * @param syncOn set to true to enable synchronous writes or to false to disable them
+   */
   void GenericDatabase::enforceSynchronousWrites(bool syncOn)
   {
     if (dbType != SQLITE)
@@ -291,6 +321,12 @@ namespace dbOverlay
   
 //----------------------------------------------------------------------------
 
+  /**
+   * Helper function for easy view creation, e. g. from within populateViews
+   * 
+   * @param viewName contains the name of the view to be created
+   * @param selectStmt is the sql-select-statement for this view
+   */    
   void GenericDatabase::viewCreationHelper(const QString& viewName, const QString& selectStmt)
   {
     QString sql = "CREATE VIEW IF NOT EXISTS";
@@ -302,13 +338,32 @@ namespace dbOverlay
   }
 
 //----------------------------------------------------------------------------
+
+  QStringList GenericDatabase::allTableNames(bool getViews)
+  {
+    if (getViews)
+    {
+      log.info("Found views: " + commaSepStringFromList(conn.tables(QSql::Views)));
+      return conn.tables(QSql::Views);
+    }
     
+    QStringList result = conn.tables(QSql::Tables);
     
+    // remove an internal sqlite table
+    if ((dbType == SQLITE) && (result.contains("sqlite_sequence")))
+    {
+      result.removeAll("sqlite_sequence");
+    }
+    
+    return result;
+  }
+  
 //----------------------------------------------------------------------------
-    
-    
-//----------------------------------------------------------------------------
-    
+
+  QStringList GenericDatabase::allViewNames()
+  {
+    return allTableNames(true);
+  }
     
 //----------------------------------------------------------------------------
     
