@@ -42,6 +42,32 @@ namespace dbOverlay {
         int lvl;
 
     };
+    
+    class InvalidTabNameException : public std::exception
+    {
+    public:
+        InvalidTabNameException(string _tabName) : tabName(_tabName) {};
+        InvalidTabNameException() : tabName("") {};
+
+        virtual ~InvalidTabNameException() throw () {};
+        
+        const char* what() const throw ();
+
+    private:
+        string tabName;
+
+    };
+    
+    class EmptyDatabaseHandleException : public std::exception
+    {
+    public:
+        EmptyDatabaseHandleException() {};
+
+        virtual ~EmptyDatabaseHandleException() throw () {};
+        
+        const char* what() const throw ();
+    };
+    
 }
 
 #endif	/* OBJECTEMPTYEXCEPTION_H */
