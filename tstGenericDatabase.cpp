@@ -222,6 +222,52 @@ void tstGenericDatabase::testExecScalarQuery()
 //----------------------------------------------------------------------------
 
 
+void tstGenericDatabase::testExecContentQuery()
+{
+  printStartMsg("testExecContentQuery");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  
+  // test invalid query
+  QSqlQuery* result = db.execContentQuery("sdkfhsdkf");
+  CPPUNIT_ASSERT(result == NULL);
+  
+  // test query that returns no data
+  // use the chance to test sql statement construction as well
+  QVariantList params;
+  params << 456;
+  result = db.execContentQuery("SELECT id FROM t1 WHERE i>?", params);
+  CPPUNIT_ASSERT(result != NULL);
+  CPPUNIT_ASSERT(!result->first());
+  delete result;
+  
+  // test valid query with result
+  params.clear();
+  params << 84;
+  result = db.execContentQuery("SELECT count(id) FROM t1 WHERE i=?", params);
+  CPPUNIT_ASSERT(result != NULL);
+  CPPUNIT_ASSERT(result->first());
+  CPPUNIT_ASSERT(result->value(0).toInt() == 3);
+  CPPUNIT_ASSERT(!result->next());
+  delete result;
+  
+  // test valid query with result that contains more than one row
+  result = db.execContentQuery("SELECT * FROM t1 WHERE f IS NULL");
+  CPPUNIT_ASSERT(result != NULL);
+  CPPUNIT_ASSERT(result->first());
+  CPPUNIT_ASSERT(result->value(0).toInt() == 3);
+  CPPUNIT_ASSERT(result->value(1).toInt() == 84);
+  CPPUNIT_ASSERT(result->value(3).toString() == "Ho");
+  CPPUNIT_ASSERT(result->next());
+  CPPUNIT_ASSERT(result->value(0).toInt() == 4);
+  CPPUNIT_ASSERT(result->value(1).toInt() == 84);
+  CPPUNIT_ASSERT(result->value(3).toString() == "Hoi");
+  CPPUNIT_ASSERT(!result->next());
+  delete result;
+  
+  printEndMsg();
+}
+
 //----------------------------------------------------------------------------
 
 

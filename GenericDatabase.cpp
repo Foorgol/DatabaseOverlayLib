@@ -236,15 +236,10 @@ namespace dbOverlay
 
   QVariant GenericDatabase::execScalarQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = prepStatement(baseSqlStatement, params);
+    QSqlQuery *qry = execContentQuery(baseSqlStatement, params);
     
-    bool ok = qry->exec();
-    queryCounter++;
-    
-    if (!ok)
+    if (qry == NULL)
     {
-      dumpError(qry);
-      delete qry;
       return QVariant(); // invalid QVariant indicates error
     }
     
@@ -262,6 +257,22 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
+  QSqlQuery* GenericDatabase::execContentQuery(const QString& baseSqlStatement, const QVariantList& params)
+  {
+    QSqlQuery *qry = prepStatement(baseSqlStatement, params);
+    
+    bool ok = qry->exec();
+    queryCounter++;
+    
+    if (!ok)
+    {
+      dumpError(qry);
+      delete qry;
+      return NULL;
+    }
+    
+    return qry;
+  }
     
 //----------------------------------------------------------------------------
 
