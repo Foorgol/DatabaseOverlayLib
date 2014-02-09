@@ -13,6 +13,7 @@
 #include "tstInteger.h"
 #include "tstGenericDatabase.h"
 #include "tstHelperFunc.h"
+#include "tstCommonTabularClass.h"
 
 // comment / uncomment the following to execute just one suite
 //#define TEST_ALL_SUITES
@@ -22,8 +23,9 @@
   CPPUNIT_TEST_SUITE_REGISTRATION( tstInteger );
   CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
   CPPUNIT_TEST_SUITE_REGISTRATION(tstHelperFunc);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstCommonTabularClass);
 #else
-  CPPUNIT_TEST_SUITE_REGISTRATION(tstGenericDatabase);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstCommonTabularClass);
 #endif
 
 

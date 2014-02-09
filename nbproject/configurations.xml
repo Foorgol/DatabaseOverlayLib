@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="f2"
-                   displayName="BasicDatatypes"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f2" displayName="BasicDatatypes" projectFiles="true">
       <itemPath>Integer.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="f1"
-                   displayName="Exceptions"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f1" displayName="Exceptions" projectFiles="true">
       <itemPath>dbExceptions.cpp</itemPath>
       <itemPath>dbExceptions.h</itemPath>
     </logicalFolder>
@@ -18,7 +12,7 @@
                    displayName="Header Files"
                    projectFiles="true">
     </logicalFolder>
-    <logicalFolder name="f4" displayName="Helper" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f4" displayName="Helper" projectFiles="true">
       <itemPath>HelperFunc.cpp</itemPath>
       <itemPath>HelperFunc.h</itemPath>
       <itemPath>Logger.cpp</itemPath>
@@ -31,19 +25,20 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>CommonTabularClass.cpp</itemPath>
+      <itemPath>CommonTabularClass.h</itemPath>
       <itemPath>GenericDatabase.cpp</itemPath>
       <itemPath>GenericDatabase.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="f3"
-                   displayName="Unit Testing"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f3" displayName="Unit Testing" projectFiles="true">
       <itemPath>BasicTestClass.cpp</itemPath>
       <itemPath>BasicTestClass.h</itemPath>
       <itemPath>DatabaseTestScenario.cpp</itemPath>
       <itemPath>DatabaseTestScenario.h</itemPath>
       <itemPath>SampleDB.cpp</itemPath>
       <itemPath>SampleDB.h</itemPath>
+      <itemPath>tstCommonTabularClass.cpp</itemPath>
+      <itemPath>tstCommonTabularClass.h</itemPath>
       <itemPath>tstGenericDatabase.cpp</itemPath>
       <itemPath>tstGenericDatabase.h</itemPath>
       <itemPath>tstHelperFunc.cpp</itemPath>
@@ -84,6 +79,10 @@
       </item>
       <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="CommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CommonTabularClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="DatabaseTestScenario.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DatabaseTestScenario.h" ex="false" tool="3" flavor2="0">
@@ -109,6 +108,10 @@
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -144,6 +147,10 @@
       </item>
       <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="CommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CommonTabularClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="DatabaseTestScenario.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DatabaseTestScenario.h" ex="false" tool="3" flavor2="0">
@@ -169,6 +176,10 @@
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -199,6 +210,10 @@
       </item>
       <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="CommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CommonTabularClass.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="DatabaseTestScenario.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="DatabaseTestScenario.h" ex="false" tool="3" flavor2="0">
@@ -224,6 +239,10 @@
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
