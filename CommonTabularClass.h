@@ -46,7 +46,12 @@ namespace dbOverlay
     CommonTabularClass (const CommonTabularClass& orig);
     virtual ~CommonTabularClass ();
     
-    ColInfoList allColDefs();
+    ColInfoList allColDefs() const;
+    QString getColType(const QString& colName) const;
+    QString cid2name(int cid) const;
+    int name2cid(const QString& colName) const;
+    bool hasColumn(const QString& colName) const;
+    bool hasColumn(int cid) const;
 
   protected:
     /**

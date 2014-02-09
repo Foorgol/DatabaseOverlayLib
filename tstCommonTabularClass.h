@@ -22,10 +22,10 @@ class tstCommonTabularClass : public DatabaseTestScenario {
   CPPUNIT_TEST_SUITE( tstCommonTabularClass );
   CPPUNIT_TEST(testConstructor);
   CPPUNIT_TEST(testAllColDefs);
-//  CPPUNIT_TEST();
-//  CPPUNIT_TEST();
-//  CPPUNIT_TEST();
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testGetColType);
+  CPPUNIT_TEST(testcid2name);
+  CPPUNIT_TEST(testname2cid);
+  CPPUNIT_TEST(testHasColumn);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -41,6 +41,10 @@ class tstCommonTabularClass : public DatabaseTestScenario {
 public:
     void testConstructor();
     void testAllColDefs();
+    void testGetColType();
+    void testcid2name();
+    void testname2cid();
+    void testHasColumn();
 };
 
 #endif	/* TSTGENERICDATABASE_H */
