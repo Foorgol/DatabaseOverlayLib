@@ -68,6 +68,7 @@ namespace dbOverlay
     bool hasTable(const QString& name, bool isView=false);
     bool hasView(const QString& name);
     static QString genForeignKeyClause(QString keyName, QString referedTable);
+    DB_ENGINE getDbType();
     
     
   private:

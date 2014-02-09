@@ -13,12 +13,40 @@
 namespace dbOverlay
 {
 
+    /**
+   * A small struct with schema information about a column
+   *
+   * @author volker
+   */
+  class ColInfo
+  {
+  public:
+
+    ColInfo (int _cid, QString _name, QString _type)
+    : cid (_cid), name (_name), type (_type.toUpper ()) { };
+
+    int getId () const;
+    QString getColName () const;
+    QString getColType () const;
+    
+  protected:
+    int cid;
+    QString name;
+    QString type;
+    
+  };
+  
+  typedef QList<ColInfo> ColInfoList;
+  
+
   class CommonTabularClass
   {
   public:
     CommonTabularClass (GenericDatabase* db, const QString& tabName, bool _isView=false );
     CommonTabularClass (const CommonTabularClass& orig);
     virtual ~CommonTabularClass ();
+    
+    ColInfoList allColDefs();
 
   protected:
     /**
