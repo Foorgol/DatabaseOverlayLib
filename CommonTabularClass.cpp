@@ -72,7 +72,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  ColInfoList CommonTabularClass::allColDefs()
+  ColInfoList CommonTabularClass::allColDefs() const
   {
     ColInfoList result;
     QSqlQuery* qry;
@@ -108,18 +108,84 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  QString CommonTabularClass::getColType(const QString& colName) const
+  {
+    ColInfoList cil = allColDefs();
+    ColInfoList::const_iterator i;
+    
+    for (i = cil.constBegin(); i != cil.constEnd(); ++i)
+    {
+      if ((*i).getColName() == colName)
+      {
+        return (*i).getColType();
+      }
+    }
+    
+    return QString();
+  }
 
 //----------------------------------------------------------------------------
 
+  QString CommonTabularClass::cid2name(int cid) const
+  {
+    ColInfoList cil = allColDefs();
+    ColInfoList::const_iterator i;
+    
+    for (i = cil.constBegin(); i != cil.constEnd(); ++i)
+    {
+      if ((*i).getId() == cid)
+      {
+        return (*i).getColName();
+      }
+    }
+    
+    return QString();
+  }
 
 //----------------------------------------------------------------------------
 
+  int CommonTabularClass::name2cid(const QString& colName) const
+  {
+    ColInfoList cil = allColDefs();
+    ColInfoList::const_iterator i;
+    
+    for (i = cil.constBegin(); i != cil.constEnd(); ++i)
+    {
+      if ((*i).getColName() == colName)
+      {
+        return (*i).getId();
+      }
+    }
+    
+    return -1;
+  }
 
 //----------------------------------------------------------------------------
 
+  bool CommonTabularClass::hasColumn(const QString& colName) const
+  {
+    ColInfoList cil = allColDefs();
+    ColInfoList::const_iterator i;
+    
+    for (i = cil.constBegin(); i != cil.constEnd(); ++i)
+    {
+      if ((*i).getColName() == colName)
+      {
+        return true;
+      }
+    }
+    
+    return false;
+  }
 
 //----------------------------------------------------------------------------
 
+  bool CommonTabularClass::hasColumn(int cid) const
+  {
+    ColInfoList cil = allColDefs();
+    
+    return ((cid >= 0) && (cid < cil.length()));
+  }
 
 //----------------------------------------------------------------------------
 

@@ -8,6 +8,7 @@
 #include "tstCommonTabularClass.h"
 #include "dbExceptions.h"
 #include "../qt4/QtCore/qchar.h"
+#include "HelperFunc.h"
 
 #include <stdexcept>
 
@@ -101,16 +102,100 @@ void tstCommonTabularClass::testAllColDefs()
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testGetColType()
+{
+  printStartMsg("testGetColType");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid column names
+  CPPUNIT_ASSERT(t1.getColType("Lalala") == QString::null);
+  CPPUNIT_ASSERT(t1.getColType("") == QString::null);
+  CPPUNIT_ASSERT(t1.getColType(QString::null) == QString::null);
+  
+  // test normal column
+  CPPUNIT_ASSERT(t1.getColType("f") == "DOUBLE");
+
+  printEndMsg();
+  
+}
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testcid2name()
+{
+  printStartMsg("testcid2name");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid column indices
+  CPPUNIT_ASSERT(t1.cid2name(-1) == QString::null);
+  CPPUNIT_ASSERT(t1.cid2name(200) == QString::null);
+  
+  // test normal column
+  CPPUNIT_ASSERT(t1.cid2name(0) == "id");
+  CPPUNIT_ASSERT(t1.cid2name(1) == "i");
+
+  printEndMsg();
+  
+}
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testname2cid()
+{
+  printStartMsg("testname2cid");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid column names
+  CPPUNIT_ASSERT(t1.name2cid("Lalala") == -1);
+  CPPUNIT_ASSERT(t1.name2cid("") == -1);
+  CPPUNIT_ASSERT(t1.name2cid(QString::null) == -1);
+  
+  // test normal column
+  CPPUNIT_ASSERT(t1.name2cid("id") == 0);
+  CPPUNIT_ASSERT(t1.name2cid("i") == 1);
+  CPPUNIT_ASSERT(t1.name2cid("f") == 2);
+
+  printEndMsg();
+  
+}
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testHasColumn()
+{
+  printStartMsg("testHasColumn");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid column names
+  CPPUNIT_ASSERT(t1.hasColumn("Lalala") == false);
+  CPPUNIT_ASSERT(t1.hasColumn("") == false);
+  CPPUNIT_ASSERT(t1.hasColumn(QString::null) == false);
+  
+  // test normal column
+  CPPUNIT_ASSERT(t1.hasColumn("id"));
+  CPPUNIT_ASSERT(t1.hasColumn("i"));
+  CPPUNIT_ASSERT(t1.hasColumn("f"));
 
+  // test invalid column indices
+  CPPUNIT_ASSERT(t1.hasColumn(-1) == false);
+  CPPUNIT_ASSERT(t1.hasColumn(200) == false);
+  
+  // test normal column
+  CPPUNIT_ASSERT(t1.hasColumn(0));
+  CPPUNIT_ASSERT(t1.hasColumn(1));
+  CPPUNIT_ASSERT(t1.hasColumn(4));
+
+  printEndMsg();
+  
+}
 //----------------------------------------------------------------------------
 
 
