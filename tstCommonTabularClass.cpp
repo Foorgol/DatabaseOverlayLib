@@ -44,6 +44,60 @@ void tstCommonTabularClass::testConstructor()
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testAllColDefs()
+{
+  printStartMsg("testAllColDefs");
+  
+  QList<dbOverlay::GenericDatabase::DB_ENGINE> dbTypes;
+  dbTypes.append(dbOverlay::GenericDatabase::SQLITE);
+  dbTypes.append(dbOverlay::GenericDatabase::MYSQL);
+  
+  QList<dbOverlay::GenericDatabase::DB_ENGINE>::iterator i;
+  for (i = dbTypes.begin(); i != dbTypes.end(); ++i)
+  {
+
+    SampleDB db = getScenario01(*i);
+    CommonTabularClass ctc(&db, "t1");
+    
+    dbOverlay::ColInfoList cil = ctc.allColDefs();
+    
+    CPPUNIT_ASSERT(cil.length() == 5);
+    
+    ColInfo ci = cil.at(0);
+    CPPUNIT_ASSERT(ci.getId() == 0);
+    CPPUNIT_ASSERT(ci.getColName() == "id");
+    CPPUNIT_ASSERT(ci.getColType().contains("INT"));
+
+    ci = cil.at(1);
+    CPPUNIT_ASSERT(ci.getId() == 1);
+    CPPUNIT_ASSERT(ci.getColName() == "i");
+    CPPUNIT_ASSERT(ci.getColType().contains("INT"));
+
+    ci = cil.at(2);
+    CPPUNIT_ASSERT(ci.getId() == 2);
+    CPPUNIT_ASSERT(ci.getColName() == "f");
+    CPPUNIT_ASSERT(ci.getColType().contains("DOUBLE"));
+
+    ci = cil.at(3);
+    CPPUNIT_ASSERT(ci.getId() == 3);
+    CPPUNIT_ASSERT(ci.getColName() == "s");
+    CPPUNIT_ASSERT(ci.getColType().contains("VARCHAR"));
+
+    ci = cil.at(4);
+    CPPUNIT_ASSERT(ci.getId() == 4);
+    CPPUNIT_ASSERT(ci.getColName() == "d");
+    CPPUNIT_ASSERT(ci.getColType().contains("DATE"));
+
+    // remove the connection of the "Object under test"
+    db.close();
+    
+    // remove the connection of the unittest framework
+    removeDbConn();
+  }
+
+  printEndMsg();
+  
+}
 
 //----------------------------------------------------------------------------
 

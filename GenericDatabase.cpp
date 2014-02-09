@@ -203,15 +203,10 @@ namespace dbOverlay
   
   int GenericDatabase::execNonQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = prepStatement(baseSqlStatement, params);
+    QSqlQuery *qry = execContentQuery(baseSqlStatement, params);
     
-    bool ok = qry->exec();
-    queryCounter++;
-    
-    if (!ok)
+    if (qry == NULL)
     {
-      dumpError(qry);
-      delete qry;
       return -1;
     }
     
@@ -224,8 +219,6 @@ namespace dbOverlay
     {
       result = qry->numRowsAffected();
     }
-    
-    dumpSuccessInfo(qry, result);
     
     delete qry;
     
@@ -270,6 +263,18 @@ namespace dbOverlay
       delete qry;
       return NULL;
     }
+    
+    int result;
+    if (qry->isSelect())
+    {
+      result = qry->size();
+    }
+    else
+    {
+      result = qry->numRowsAffected();
+    }
+    
+    dumpSuccessInfo(qry, result);
     
     return qry;
   }
@@ -485,7 +490,11 @@ namespace dbOverlay
   }
     
 //----------------------------------------------------------------------------
-    
+
+  GenericDatabase::DB_ENGINE GenericDatabase::getDbType()
+  {
+    return dbType;
+  }
     
 //----------------------------------------------------------------------------
     

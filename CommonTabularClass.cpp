@@ -12,6 +12,34 @@
 namespace dbOverlay
 {
 
+  int ColInfo::getId() const
+  {
+    return cid;
+  }
+  
+//----------------------------------------------------------------------------
+
+  QString ColInfo::getColName() const
+  {
+    return name;
+  }
+
+//----------------------------------------------------------------------------
+
+  QString ColInfo::getColType() const
+  {
+    return type;
+  }
+
+//----------------------------------------------------------------------------
+
+  /**
+   * Basic constructor of a table or view
+   * 
+   * @param _db the reference to the database instance for this table / view
+   * @param _tabName the name of the table / view
+   * @param _isView true if name refers to a view and "false" for tables
+   */
   CommonTabularClass::CommonTabularClass(GenericDatabase* _db, const QString& _tabName, bool _isView)
   : db(_db), tabName(_tabName), isView(_isView)
   {
@@ -44,6 +72,39 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  ColInfoList CommonTabularClass::allColDefs()
+  {
+    ColInfoList result;
+    QSqlQuery* qry;
+    
+    if (db->getDbType() == GenericDatabase::SQLITE)
+    {
+      qry = db->execContentQuery("PRAGMA table_info(" + tabName + ")");
+      
+      while (qry->next())
+      {
+        ColInfo ci(qry->value(0).toInt(), qry->value(1).toString(), qry->value(2).toString());
+        result << ci;
+      }
+      
+    } else {
+      
+      qry = db->execContentQuery("DESCRIBE " + tabName);
+      
+      int i=0;
+      while (qry->next())
+      {
+        ColInfo ci(i, qry->value(0).toString(), qry->value(1).toString());
+        result << ci;
+        i++;
+      }
+      
+    }
+    
+    delete qry;
+    
+    return result;
+  }
 
 //----------------------------------------------------------------------------
 

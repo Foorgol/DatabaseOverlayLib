@@ -21,7 +21,7 @@
 class tstCommonTabularClass : public DatabaseTestScenario {
   CPPUNIT_TEST_SUITE( tstCommonTabularClass );
   CPPUNIT_TEST(testConstructor);
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testAllColDefs);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -40,6 +40,7 @@ class tstCommonTabularClass : public DatabaseTestScenario {
   
 public:
     void testConstructor();
+    void testAllColDefs();
 };
 
 #endif	/* TSTGENERICDATABASE_H */
