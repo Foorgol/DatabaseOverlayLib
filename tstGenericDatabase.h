@@ -27,7 +27,7 @@ class tstGenericDatabase : public DatabaseTestScenario {
   CPPUNIT_TEST( testHasTable );
   CPPUNIT_TEST(testExecScalarQuery);
   CPPUNIT_TEST(testExecContentQuery);
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testGetTab);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -42,6 +42,7 @@ public:
     void testHasTable();
     void testExecScalarQuery();
     void testExecContentQuery();
+    void testGetTab();
 };
 
 #endif	/* TSTGENERICDATABASE_H */

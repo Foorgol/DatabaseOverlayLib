@@ -6,6 +6,8 @@
  */
 
 #include "tstGenericDatabase.h"
+#include "dbExceptions.h"
+#include "DbTab.h"
 
 #include <stdexcept>
 
@@ -270,6 +272,60 @@ void tstGenericDatabase::testExecContentQuery()
 
 //----------------------------------------------------------------------------
 
+void tstGenericDatabase::testGetTab()
+{
+  printStartMsg("testGetTab");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  
+  // test invalid query
+  CPPUNIT_ASSERT_THROW(db.getTab(""), InvalidTabNameException);
+  CPPUNIT_ASSERT_THROW(db.getTab(QString::null), InvalidTabNameException);
+  CPPUNIT_ASSERT_THROW(db.getTab("Lalala"), InvalidTabNameException);
+  
+  // test valid query
+  DbTab t1 = db.getTab("t1");
+  
+  // make sure that another request to this table
+  // does not result in another db query
+  db.resetQueryCounter();
+  DbTab t1_2 = db.getTab("t1");
+  CPPUNIT_ASSERT(db.getQueryCounter() == 0);
+  
+  // make sure that a request to another table
+  // actually result in another db query
+  db.resetQueryCounter();
+  DbTab t2 = db.getTab("t2");
+  CPPUNIT_ASSERT(db.getQueryCounter() > 0);
+  
+  //
+  // Repeat all tests above using the []-operator
+  //
+  
+  DbTab::clearTabCache();
+  
+  // test invalid query
+  CPPUNIT_ASSERT_THROW(db[""], InvalidTabNameException);
+  CPPUNIT_ASSERT_THROW(db[QString::null], InvalidTabNameException);
+  CPPUNIT_ASSERT_THROW(db["Lalala"], InvalidTabNameException);
+  
+  // test valid query
+  t1 = db["t1"];
+  
+  // make sure that another request to this table
+  // does not result in another db query
+  db.resetQueryCounter();
+  t1_2 = db["t1"];
+  CPPUNIT_ASSERT(db.getQueryCounter() == 0);
+  
+  // make sure that a request to another table
+  // actually result in another db query
+  db.resetQueryCounter();
+  t2 = db["t2"];
+  CPPUNIT_ASSERT(db.getQueryCounter() > 0);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

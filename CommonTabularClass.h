@@ -43,7 +43,7 @@ namespace dbOverlay
   {
   public:
     CommonTabularClass (GenericDatabase* db, const QString& tabName, bool _isView=false );
-    CommonTabularClass (const CommonTabularClass& orig);
+    //CommonTabularClass (const CommonTabularClass& orig) {};
     virtual ~CommonTabularClass ();
     
     ColInfoList allColDefs() const;

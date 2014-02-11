@@ -56,5 +56,11 @@ namespace dbOverlay
     string msg = "Received a null-pointer to a database instance!";
     return msg.c_str();
   }
+  
+  const char* InvalidRowQualifierException::what() const throw ()
+  {
+    string msg = "Received an invalid qualifier / identifier to construct a new TabRow()";
+    return msg.c_str();
+  }
 }
 

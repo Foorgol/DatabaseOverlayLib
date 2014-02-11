@@ -400,6 +400,7 @@ namespace dbOverlay
     if (getViews)
     {
       log.info("Found views: " + commaSepStringFromList(conn.tables(QSql::Views)));
+      queryCounter++;
       return conn.tables(QSql::Views);
     }
     
@@ -410,7 +411,7 @@ namespace dbOverlay
     {
       result.removeAll("sqlite_sequence");
     }
-    
+    queryCounter++;
     return result;
   }
   
@@ -497,7 +498,8 @@ namespace dbOverlay
   }
     
 //----------------------------------------------------------------------------
-    
+
+
     
 //----------------------------------------------------------------------------
     

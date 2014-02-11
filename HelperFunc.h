@@ -21,6 +21,7 @@ namespace dbOverlay
   
   QString commaSepStringFromList(const QStringList& lst);
   QString commaSepStringFromList(const QVariantList& lst);
+  QVariantList prepWhereClause(const QVariantList& params);
 }
 #endif	/* HELPERFUNC_H */
 
