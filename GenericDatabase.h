@@ -22,6 +22,8 @@ using namespace std;
 
 namespace dbOverlay
 {
+  // forward def for DbTab as return type (see below)
+  class DbTab;
 
   class GenericDatabase : public QObject
   {
@@ -69,6 +71,8 @@ namespace dbOverlay
     bool hasView(const QString& name);
     static QString genForeignKeyClause(QString keyName, QString referedTable);
     DB_ENGINE getDbType();
+    DbTab getTab(const QString& name);
+    DbTab operator[](const QString& name);
     
     
   private:
@@ -131,7 +135,7 @@ namespace dbOverlay
     void initDB(DB_ENGINE t, QString srv, int port, QString name, QString user, QString pw);
     
     QSqlQuery* prepStatement(const QString& baseSqlStatement, const QVariantList& params);
-
+    
   };
 }
 #endif	/* GENERICDATABASE_H */

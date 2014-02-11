@@ -68,6 +68,16 @@ namespace dbOverlay {
         const char* what() const throw ();
     };
     
+    class InvalidRowQualifierException : public std::exception
+    {
+    public:
+        InvalidRowQualifierException() {};
+
+        virtual ~InvalidRowQualifierException() throw () {};
+        
+        const char* what() const throw ();
+    };
+    
 }
 
 #endif	/* OBJECTEMPTYEXCEPTION_H */
