@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <qt/QtCore/qmetatype.h>
 #include <qt/QtCore/qstringlist.h>
+#include <qt/QtCore/qjsonarray.h>
 
 using namespace dbOverlay;
 
@@ -54,3 +55,73 @@ void tstHelperFunc::testCommaSepList()
   
   printEndMsg();
 }
+
+//----------------------------------------------------------------------------
+
+  void tstHelperFunc::testPrepWhereClause()
+  {
+    printStartMsg("testPrepWhereClause");
+    
+    // empty parameter
+    QVariantList qvl;
+    QVariantList result = prepWhereClause(qvl);
+    CPPUNIT_ASSERT(result.length() == 1);
+    CPPUNIT_ASSERT(result.at(0).toString() == "");
+    
+    // odd number of args
+    qvl.clear();
+    qvl << "a" << "b" << "c";
+    CPPUNIT_ASSERT_THROW(result = prepWhereClause(qvl), std::invalid_argument);
+    
+    // one parameter
+    qvl.clear();
+    qvl << "a" << 42;
+    result = prepWhereClause(qvl);
+    CPPUNIT_ASSERT(result.length() == 2);
+    CPPUNIT_ASSERT(result.at(0).toString() == "a = ?");
+    CPPUNIT_ASSERT(result.at(1).toInt() == 42);
+    
+    // two args
+    qvl.clear();
+    qvl << "a" << 42;
+    qvl << "b" << "ABC";
+    result = prepWhereClause(qvl);
+    CPPUNIT_ASSERT(result.length() == 3);
+    CPPUNIT_ASSERT(result.at(0).toString() == "a = ? AND b = ?");
+    CPPUNIT_ASSERT(result.at(1).toInt() == 42);
+    CPPUNIT_ASSERT(result.at(2).toString() == "ABC");
+    
+    // two args incl. NULL
+    qvl.clear();
+    qvl << "a" << 42;
+    qvl << "b" << QVariant::Int;
+    result = prepWhereClause(qvl);
+    CPPUNIT_ASSERT(result.length() == 2);
+    CPPUNIT_ASSERT(result.at(0).toString() == "a = ? AND b IS NULL");
+    CPPUNIT_ASSERT(result.at(1).toInt() == 42);
+    
+    printEndMsg();
+  }
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------

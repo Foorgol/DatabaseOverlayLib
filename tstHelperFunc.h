@@ -19,11 +19,23 @@
 class tstHelperFunc : public BasicTestClass {
   CPPUNIT_TEST_SUITE( tstHelperFunc );
   CPPUNIT_TEST( testCommaSepList );
+  CPPUNIT_TEST(testPrepWhereClause);
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
+//  CPPUNIT_TEST();
   CPPUNIT_TEST_SUITE_END();
   
 public:
     void testCommaSepList();
-
+    void testPrepWhereClause();
 };
 
 #endif	/* TSTHELPERFUNC_H */
