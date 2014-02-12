@@ -26,6 +26,7 @@ namespace dbOverlay
     int insertRow(const QVariantList& args);
     int insertRow();
     TabRow operator[](const int id);
+    TabRow operator[](const QVariantList& args );
 
   private:
     static QHash<QString, DbTab> tabCache;

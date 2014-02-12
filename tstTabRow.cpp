@@ -8,6 +8,7 @@
 #include "tstTabRow.h"
 #include "dbExceptions.h"
 #include "TabRow.h"
+#include "DbTab.h"
 
 #include <stdexcept>
 
@@ -218,9 +219,31 @@ void tstTabRow::testUpdate()
     // remove the connection of the unittest framework
     removeDbConn();
   }
+  
+  printEndMsg();
 }
 //----------------------------------------------------------------------------
 
+void tstTabRow::testColumnAccess()
+{
+  printStartMsg("testColumnAccess");
+
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  TabRow r = db["t1"][5];
+  
+  // regular look-up
+  CPPUNIT_ASSERT(r["id"].toInt() == 5);
+  CPPUNIT_ASSERT(r["i"].toInt() == 84);
+  CPPUNIT_ASSERT(r["f"].toDouble() == 42.42);
+  CPPUNIT_ASSERT(r["s"].toString() == "Ho");
+  
+  // invalid column names
+  CPPUNIT_ASSERT_THROW(r[""], std::invalid_argument);
+  CPPUNIT_ASSERT_THROW(r[QString::null], std::invalid_argument);
+  CPPUNIT_ASSERT_THROW(r["xxx"], std::invalid_argument);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 
