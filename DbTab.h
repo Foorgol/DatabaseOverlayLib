@@ -9,6 +9,7 @@
 #define	DBTAB_H
 
 #include "CommonTabularClass.h"
+#include "TabRow.h"
 
 #include <QHash>
 
@@ -24,6 +25,7 @@ namespace dbOverlay
     virtual ~DbTab ();
     int insertRow(const QVariantList& args);
     int insertRow();
+    TabRow operator[](const int id);
 
   private:
     static QHash<QString, DbTab> tabCache;
