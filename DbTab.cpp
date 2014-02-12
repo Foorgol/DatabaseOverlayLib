@@ -26,6 +26,8 @@ namespace dbOverlay
       {
         return (*i);
       }
+      
+      i++;
     }
     
     DbTab newTab(_db, _tabName);

@@ -21,7 +21,7 @@
 class tstTabRow : public DatabaseTestScenario {
   CPPUNIT_TEST_SUITE( tstTabRow );
   CPPUNIT_TEST(testConstructor);
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testUpdate);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -40,6 +40,7 @@ class tstTabRow : public DatabaseTestScenario {
   
 public:
     void testConstructor();
+    void testUpdate();
 };
 
 #endif	/* TSTGENERICDATABASE_H */
