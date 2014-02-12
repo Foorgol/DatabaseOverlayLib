@@ -127,6 +127,98 @@ void tstTabRow::testConstructor()
 }
 
 //----------------------------------------------------------------------------
+
+void tstTabRow::testUpdate()
+{
+  printStartMsg("testUpdate");
+
+  QList<dbOverlay::GenericDatabase::DB_ENGINE> dbTypes;
+  dbTypes.append(dbOverlay::GenericDatabase::SQLITE);
+  dbTypes.append(dbOverlay::GenericDatabase::MYSQL);
+
+  QList<dbOverlay::GenericDatabase::DB_ENGINE>::iterator i;
+  for (i = dbTypes.begin(); i != dbTypes.end(); ++i)
+  {
+    SampleDB db = getScenario01(*i);
+    QSqlDatabase check = getDbConn(*i);
+    TabRow r(&db, "t1", 2);
+    
+    QVariantList qvl;
+    
+    // regular update
+    qvl << "i" << 666;
+    CPPUNIT_ASSERT(r.update(qvl));
+    QSqlQuery q = check.exec("SELECT * FROM t1 WHERE id=2");
+    CPPUNIT_ASSERT(q.first());
+    CPPUNIT_ASSERT(q.value(0).toInt() == 2);
+    CPPUNIT_ASSERT(q.value(1).toInt() == 666);
+    CPPUNIT_ASSERT(q.value(2).toDouble() == 666.66);
+    CPPUNIT_ASSERT(q.value(3).toString() == "Hi");
+    q.clear();
+    
+    // update more than one column, including NULL values
+    qvl.clear();
+    qvl << "i" << QVariant::Int;
+    qvl << "s" << ",,,";
+    CPPUNIT_ASSERT(r.update(qvl));
+    q = check.exec("SELECT * FROM t1 WHERE id=2");
+    CPPUNIT_ASSERT(q.first());
+    CPPUNIT_ASSERT(q.value(0).toInt() == 2);
+    CPPUNIT_ASSERT(q.value(1).isNull());
+    CPPUNIT_ASSERT(q.value(2).toDouble() == 666.66);
+    CPPUNIT_ASSERT(q.value(3).toString() == ",,,");
+    q.clear();
+    
+    // try to update the id column
+    qvl.clear();
+    qvl << "id" << 666;
+    qvl << "i" << -5;
+    qvl << "f" << -5.55;
+    qvl << "s" << "Noooo";
+    CPPUNIT_ASSERT_THROW(r.update(qvl), std::invalid_argument);
+    q = check.exec("SELECT * FROM t1 WHERE id=2");
+    CPPUNIT_ASSERT(q.first());
+    CPPUNIT_ASSERT(q.value(0).toInt() == 2);
+    CPPUNIT_ASSERT(q.value(1).isNull());
+    CPPUNIT_ASSERT(q.value(2).toDouble() == 666.66);
+    CPPUNIT_ASSERT(q.value(3).toString() == ",,,");
+    q.clear();
+    
+    // invalid number of args
+    qvl.clear();
+    qvl << "i" << -5;
+    qvl << "f" << -5.55;
+    qvl << "s";
+    CPPUNIT_ASSERT_THROW(r.update(qvl), std::invalid_argument);
+    q = check.exec("SELECT * FROM t1 WHERE id=2");
+    CPPUNIT_ASSERT(q.first());
+    CPPUNIT_ASSERT(q.value(0).toInt() == 2);
+    CPPUNIT_ASSERT(q.value(1).isNull());
+    CPPUNIT_ASSERT(q.value(2).toDouble() == 666.66);
+    CPPUNIT_ASSERT(q.value(3).toString() == ",,,");
+    q.clear();
+    
+    // invalid column names
+    qvl.clear();
+    qvl << "x" << -5;
+    qvl << "y" << -5.55;
+    qvl << "z" << "qqq";
+    CPPUNIT_ASSERT(!(r.update(qvl)));
+    q = check.exec("SELECT * FROM t1 WHERE id=2");
+    CPPUNIT_ASSERT(q.first());
+    CPPUNIT_ASSERT(q.value(0).toInt() == 2);
+    CPPUNIT_ASSERT(q.value(1).isNull());
+    CPPUNIT_ASSERT(q.value(2).toDouble() == 666.66);
+    CPPUNIT_ASSERT(q.value(3).toString() == ",,,");
+    q.clear();
+    
+    // remove the connection of the "Object under test"
+    db.close();
+
+    // remove the connection of the unittest framework
+    removeDbConn();
+  }
+}
 //----------------------------------------------------------------------------
 
 

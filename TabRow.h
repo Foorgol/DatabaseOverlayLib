@@ -27,6 +27,7 @@ namespace dbOverlay
     //TabRow (const TabRow& orig);
     virtual ~TabRow ();
     int getId();
+    bool update(const QVariantList& args);
     
   protected:
     /**
