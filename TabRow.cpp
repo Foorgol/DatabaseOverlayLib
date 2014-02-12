@@ -195,6 +195,24 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  QVariant TabRow::operator [](const QString& colName)
+  {
+    if ((colName == NULL) || (colName.length() == 0))
+    {
+      throw std::invalid_argument("Column access: received empty column name");
+    }
+    
+    QString sql = "SELECT " + colName + " FROM " + tabName + " WHERE id = " + QString::number(rowId);
+    
+    QVariant result = db->execScalarQuery(sql);
+    if (!(result.isValid()))
+    {
+      throw std::invalid_argument("Column access: received invalid column name or row has been deleted in the meantime");
+    }
+    
+    return result;
+  }
+
 
 //----------------------------------------------------------------------------
 

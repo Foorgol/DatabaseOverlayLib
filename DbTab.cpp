@@ -142,6 +142,10 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  TabRow DbTab::operator [](const QVariantList& args)
+  {
+    return TabRow(db, tabName, args);
+  }
 
 //----------------------------------------------------------------------------
 
