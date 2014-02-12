@@ -62,5 +62,11 @@ namespace dbOverlay
     string msg = "Received an invalid qualifier / identifier to construct a new TabRow()";
     return msg.c_str();
   }
+  
+  const char* WriteDataFailedException::what() const throw ()
+  {
+    string msg = "Inserting / updating data in table " + tabName + " failed";
+    return msg.c_str();
+  }
 }
 

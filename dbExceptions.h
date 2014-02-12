@@ -78,6 +78,18 @@ namespace dbOverlay {
         const char* what() const throw ();
     };
     
+    class WriteDataFailedException : public std::exception
+    {
+    public:
+        WriteDataFailedException(string _tabName) : tabName(_tabName) {};
+
+        virtual ~WriteDataFailedException() throw () {};
+        
+        const char* what() const throw ();
+    private:
+      string tabName;
+    };
+    
 }
 
 #endif	/* OBJECTEMPTYEXCEPTION_H */
