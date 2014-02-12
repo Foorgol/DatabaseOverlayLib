@@ -73,6 +73,7 @@ namespace dbOverlay
     DB_ENGINE getDbType();
     DbTab getTab(const QString& name);
     DbTab operator[](const QString& name);
+    int getLastInsertId();
     
     
   private:

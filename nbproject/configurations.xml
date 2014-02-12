@@ -43,6 +43,8 @@
       <itemPath>SampleDB.h</itemPath>
       <itemPath>tstCommonTabularClass.cpp</itemPath>
       <itemPath>tstCommonTabularClass.h</itemPath>
+      <itemPath>tstDbTab.cpp</itemPath>
+      <itemPath>tstDbTab.h</itemPath>
       <itemPath>tstGenericDatabase.cpp</itemPath>
       <itemPath>tstGenericDatabase.h</itemPath>
       <itemPath>tstHelperFunc.cpp</itemPath>
@@ -127,6 +129,10 @@
       </item>
       <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="tstDbTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstDbTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstGenericDatabase.h" ex="false" tool="3" flavor2="0">
@@ -207,6 +213,10 @@
       </item>
       <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="tstDbTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstDbTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstGenericDatabase.h" ex="false" tool="3" flavor2="0">
@@ -281,6 +291,10 @@
       <item path="tstCommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstDbTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstDbTab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>

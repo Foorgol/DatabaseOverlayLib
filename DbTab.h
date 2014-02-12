@@ -22,6 +22,8 @@ namespace dbOverlay
     static void clearTabCache();
     //DbTab (const DbTab& orig);
     virtual ~DbTab ();
+    int insertRow(const QVariantList& args);
+    int insertRow();
 
   private:
     static QHash<QString, DbTab> tabCache;

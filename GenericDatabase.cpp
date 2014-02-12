@@ -499,8 +499,21 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
-
+  int GenericDatabase::getLastInsertId()
+  {
+    QString sql = "SELECT ";
     
+    if (dbType == SQLITE)
+    {
+      sql += "last_insert_rowid()";
+    } else {
+      sql += "LAST_INSERT_ID()";
+    }
+    
+    QVariant result = execScalarQuery(sql);
+    return result.toInt();
+  }
+
 //----------------------------------------------------------------------------
     
     
