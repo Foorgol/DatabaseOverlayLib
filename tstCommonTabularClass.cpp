@@ -234,6 +234,47 @@ void tstCommonTabularClass::testGetMatchCountForWhereClause()
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testGetMatchCountForColumnValue()
+{
+  printStartMsg("testGetMatchCountForColumnValue");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid or empty arguments list
+  QVariantList qvl;
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == -1);
+  
+  qvl << "Odd number of parameters makes no sense";
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == -1);
+  
+  qvl.clear();
+  qvl << "InvalidColName";
+  qvl << "42";
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == -1);
+  
+  // test valid query with parameters
+  qvl.clear();
+  qvl << "i";
+  qvl << 84;
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == 3);
+  
+  // two parameters, ANDed, incl. NULL
+  qvl.clear();
+  qvl << "i";
+  qvl << 84;
+  qvl << "f";
+  qvl << QVariant::Int;
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == 2);
+  
+  // test a query that matches zero rows
+  qvl.clear();
+  qvl << "i";
+  qvl << 5000;
+  CPPUNIT_ASSERT(t1.getMatchCountForColumnValue(qvl) == 0);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

@@ -224,6 +224,44 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  int CommonTabularClass::getMatchCountForColumnValue(const QVariantList& args) const
+  {
+    QVariantList qvl;
+    
+    try
+    {
+      qvl = prepWhereClause(args);
+    }
+    catch (std::invalid_argument e)
+    {
+      return -1;
+    }
+    
+    QString sql = "SELECT count(*) FROM " + tabName + " WHERE " + qvl.at(0).toString();
+    QVariant result;
+    if (qvl.length() > 1)
+    {
+      qvl.removeFirst();
+      result = db->execScalarQuery(sql, qvl);
+    } else {
+      result = db->execScalarQuery(sql);
+    }
+    
+    if (result.isNull())
+    {
+      return -1; // error in the query
+    }
+
+    bool ok;
+    int cnt = result.toInt(&ok);
+
+    if (!ok)
+    {
+      return 0;  // successful query, but non-int result. Shouldn't happen
+    }
+
+    return cnt;
+  }
 
 //----------------------------------------------------------------------------
 

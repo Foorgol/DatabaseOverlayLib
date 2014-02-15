@@ -82,32 +82,32 @@ namespace dbOverlay
   QVariantList prepWhereClause(const QVariantList& args)
   {
     QString whereClause = "";
-    
+
     // check for an EVEN number of arguments
-        if ((args.length() % 2) != 0)
-        {
-          throw std::invalid_argument("Need an even number of arguments (column / value pairs)");
-        }
-        
-        // for the return value, create a list of the parameter objects
-        // plus the WHERE-clause at index 0
-        QVariantList result;
+    if ((args.length() % 2) != 0)
+    {
+      throw std::invalid_argument("Need an even number of arguments (column / value pairs)");
+    }
 
-        for (int i=0; i < args.length(); i += 2)
-        {
-            whereClause += args[i].toString();
-            if (args[i+1].isNull()) whereClause += " IS NULL";
-            else
-            {
-                whereClause += " = ?";
-                result.append(args[i+1]);
-            }
-            if (i != (args.length() - 2)) whereClause += " AND ";
-        }
+    // for the return value, create a list of the parameter objects
+    // plus the WHERE-clause at index 0
+    QVariantList result;
 
-        result.insert(0, whereClause);
-        
-        return result;
+    for (int i=0; i < args.length(); i += 2)
+    {
+      whereClause += args[i].toString();
+      if (args[i+1].isNull()) whereClause += " IS NULL";
+      else
+      {
+        whereClause += " = ?";
+        result.append(args[i+1]);
+      }
+      if (i != (args.length() - 2)) whereClause += " AND ";
+    }
+
+    result.insert(0, whereClause);
+
+    return result;
   }
 
 //----------------------------------------------------------------------------

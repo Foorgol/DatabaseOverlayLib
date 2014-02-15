@@ -54,6 +54,7 @@ namespace dbOverlay
     bool hasColumn(int cid) const;
     int getMatchCountForWhereClause(const QString& where, const QVariantList& args) const;
     int getMatchCountForWhereClause(const QString& where) const;
+    int getMatchCountForColumnValue(const QVariantList& args) const;
 
   protected:
     /**
