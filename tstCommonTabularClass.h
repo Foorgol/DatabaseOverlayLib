@@ -26,7 +26,7 @@ class tstCommonTabularClass : public DatabaseTestScenario {
   CPPUNIT_TEST(testcid2name);
   CPPUNIT_TEST(testname2cid);
   CPPUNIT_TEST(testHasColumn);
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testGetMatchCountForWhereClause);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -45,6 +45,7 @@ public:
     void testcid2name();
     void testname2cid();
     void testHasColumn();
+    void testGetMatchCountForWhereClause();
 };
 
 #endif	/* TSTGENERICDATABASE_H */
