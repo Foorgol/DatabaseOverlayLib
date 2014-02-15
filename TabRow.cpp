@@ -22,9 +22,18 @@ namespace dbOverlay
    * @param _tabName the associated table name
    * @param _rowId 
    */
-  TabRow::TabRow(GenericDatabase* _db, const QString& _tabName, int _rowId)
+  TabRow::TabRow(GenericDatabase* _db, const QString& _tabName, int _rowId, bool skipCheck)
   : db(_db), tabName(_tabName), rowId(_rowId)
   {
+    // Dangerous short-cut for lib-internal purposes:
+    // if we're told that _db, _tabName and _rowId are GUARANTEED to be correct
+    // (e. g. they result from a previous SELECT), we don't need further database
+    // queries to check them again
+    if (skipCheck)
+    {
+      return; // all done
+    }
+    
     QVariantList emptyList;
     doInit("id = " + QString::number(rowId), emptyList);
   }

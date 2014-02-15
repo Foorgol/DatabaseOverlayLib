@@ -20,8 +20,8 @@
 class tstDbTab : public DatabaseTestScenario {
   CPPUNIT_TEST_SUITE( tstDbTab );
   CPPUNIT_TEST(testInsert);
-//  CPPUNIT_TEST();
-//  CPPUNIT_TEST();
+  CPPUNIT_TEST(testIterator);
+  CPPUNIT_TEST(testGetRowsByWhereClause);
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
 //  CPPUNIT_TEST();
@@ -39,6 +39,8 @@ class tstDbTab : public DatabaseTestScenario {
   
 public:
     void testInsert();
+    void testIterator();
+    void testGetRowsByWhereClause();
 };
 
 #endif	/* TSTGENERICDATABASE_H */

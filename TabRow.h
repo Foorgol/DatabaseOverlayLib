@@ -22,7 +22,7 @@ namespace dbOverlay
   class TabRow
   {
   public:
-    TabRow (GenericDatabase* db, const QString& _tabName, int _rowId);
+    TabRow (GenericDatabase* db, const QString& _tabName, int _rowId, bool skipCheck = false);
     TabRow (GenericDatabase* db, const QString& _tabName, const QVariantList& params);
     //TabRow (const TabRow& orig);
     virtual ~TabRow ();
