@@ -15,6 +15,7 @@
 #include <QList>
 #include <qt/QtCore/qstringlist.h>
 #include <qt/QtCore/qmetatype.h>
+#include <qt/QtCore/qjsonarray.h>
 
 using namespace dbOverlay;
 
@@ -198,6 +199,38 @@ void tstCommonTabularClass::testHasColumn()
 }
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testGetMatchCountForWhereClause()
+{
+  printStartMsg("testGetMatchCountForWhereClause");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  
+  // test invalid or empty where clause
+  QVariantList qvl;
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("") == -1);
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause(QString::null) == -1);
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("lkdflsjflsdf") == -1);
+  
+  // test valid queries without parameters
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("i = 84") == 3);
+  
+  // test valid query with parameters
+  qvl << "Ho";
+  qvl << 50;
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("s = ? AND i > ?", qvl) == 2);
+  
+  // test a query that matches zero rows
+  qvl.clear();
+  qvl << 5000;
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("i > ?", qvl) == 0);
+  
+  // test a wrong number of parameters
+  qvl.clear();
+  CPPUNIT_ASSERT(t1.getMatchCountForWhereClause("s = ? AND i > ?", qvl) == -1);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

@@ -5,6 +5,8 @@
  * Created on February 8, 2014, 7:12 PM
  */
 
+#include <qt/QtCore/qjsonarray.h>
+
 #include "CommonTabularClass.h"
 #include "dbExceptions.h"
 #include "HelperFunc.h"
@@ -189,8 +191,35 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  int CommonTabularClass::getMatchCountForWhereClause(const QString& where, const QVariantList& args) const
+  {
+    QString sql = "SELECT count(*) FROM " + tabName + " WHERE " + where;
+    QVariant result = db->execScalarQuery(sql, args);
+
+    if (result.isNull())
+    {
+      return -1; // error in the query
+    }
+
+    bool ok;
+    int cnt = result.toInt(&ok);
+
+    if (!ok)
+    {
+      return 0;  // successful query, but non-int result. Shouldn't happen
+    }
+
+    return cnt;
+  }
+
 
 //----------------------------------------------------------------------------
+
+  int CommonTabularClass::getMatchCountForWhereClause(const QString& where) const
+  {
+    QVariantList empty;
+    return getMatchCountForWhereClause(where, empty);
+  }
 
 
 //----------------------------------------------------------------------------
