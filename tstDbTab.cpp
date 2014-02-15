@@ -121,8 +121,90 @@ void tstDbTab::testInsert()
 }
 
 //----------------------------------------------------------------------------
+
+void tstDbTab::testIterator()
+{
+  printStartMsg("testIterator");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  QSqlDatabase check = getDbConn(dbOverlay::GenericDatabase::SQLITE);
+  
+  // test normal query
+  QSqlQuery qry = check.exec("SELECT * FROM t1");
+  DbTab::CachingRowIterator i(&db, "t1", qry);
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 5);
+  int idCnt = 1;
+  while (!i.isEnd())
+  {
+    TabRow r = *i;
+    CPPUNIT_ASSERT(r.getId() == idCnt);
+    ++i;
+    idCnt++;
+  }
+  CPPUNIT_ASSERT(idCnt == i.length()+1);
+  
+  // test query that returns no results
+  qry = check.exec("SELECT * FROM t1 WHERE i > 4242");
+  i = DbTab::CachingRowIterator(&db, "t1", qry);
+  CPPUNIT_ASSERT(!i.isValid());
+  CPPUNIT_ASSERT(i.length() == 0);
+  CPPUNIT_ASSERT(i.isEnd());
+  
+  // test inactive query
+  qry = check.exec("SELECT * FROM t1 WHERE i > 4242");
+  qry.finish();
+  CPPUNIT_ASSERT_THROW(i = DbTab::CachingRowIterator(&db, "t1", qry), std::invalid_argument);
+  
+  // test non-select query
+  qry = check.exec("UPDATE t1 SET i=666 WHERE id=1");
+  CPPUNIT_ASSERT_THROW(i = DbTab::CachingRowIterator(&db, "t1", qry), std::invalid_argument);
+  
+  printEndMsg();
+}
 //----------------------------------------------------------------------------
 
+void tstDbTab::testGetRowsByWhereClause()
+{
+  printStartMsg("testGetRowsByWhereClause");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  DbTab t1 = db["t1"];
+  
+  // test invalid or empty where clause
+  CPPUNIT_ASSERT_THROW(t1.getRowsByWhereClause(""), std::invalid_argument);
+  CPPUNIT_ASSERT_THROW(t1.getRowsByWhereClause(QString::null), std::invalid_argument);
+  CPPUNIT_ASSERT_THROW(t1.getRowsByWhereClause("lkdflsjflsdf"), std::invalid_argument);
+  
+  // test valid queries without parameters
+  DbTab::CachingRowIterator i = t1.getRowsByWhereClause("i = 84");
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 3);
+  CPPUNIT_ASSERT(!i.isEnd());
+
+  // normal query with results
+  QVariantList qvl;
+  qvl << "Ho";
+  qvl << 50;
+  i = t1.getRowsByWhereClause("s = ? AND i > ?", qvl);
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 2);
+  CPPUNIT_ASSERT(!i.isEnd());
+  
+  // test a query that matches zero rows
+  qvl.clear();
+  qvl << 5000;
+  i = t1.getRowsByWhereClause("i > ?", qvl);
+  CPPUNIT_ASSERT(!i.isValid());
+  CPPUNIT_ASSERT(i.length() == 0);
+  CPPUNIT_ASSERT(i.isEnd());
+  
+  // test a wrong number of parameters
+  qvl.clear();
+  CPPUNIT_ASSERT_THROW(t1.getRowsByWhereClause("s = ? AND i > ?", qvl), std::invalid_argument);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 
