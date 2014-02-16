@@ -236,6 +236,23 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  DbTab::CachingRowIterator DbTab::getRowsByColumnValue(const QVariantList& args) const
+  {
+    QVariantList qvl;
+    
+    qvl = prepWhereClause(args);  // don't catch exception, forward them to caller
+    
+    QString sql = "SELECT id FROM " + tabName + " WHERE " + qvl.at(0).toString();
+    qvl.removeFirst();
+    QSqlQuery* qry = db->execContentQuery(sql, qvl);
+    if (qry == NULL) {
+      throw std::invalid_argument("getRowsByColumnValue: invalid query!");
+    }
+    
+    DbTab::CachingRowIterator result = DbTab::CachingRowIterator(db, tabName, *qry);
+    delete qry;
+    return result;
+  }
 
 //----------------------------------------------------------------------------
 
