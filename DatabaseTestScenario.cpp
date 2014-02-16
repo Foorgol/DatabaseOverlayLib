@@ -6,6 +6,7 @@
  */
 
 #include "DatabaseTestScenario.h"
+#include "DbTab.h"
 
 #include <QtSql/QSqlQuery>
 #include <QFile>
@@ -121,6 +122,7 @@ void DatabaseTestScenario::tearDown()
 {
   BasicTestClass::tearDown();
   removeDbConn();
+  DbTab::clearTabCache();
   
   qDebug() << "----------- DatabaseTestScenario tearDown() finished! -----------";
 }
