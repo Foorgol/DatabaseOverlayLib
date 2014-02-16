@@ -10,12 +10,9 @@
  * don't use it at all.
  */
 
-#include <qt/QtCore/qjsonarray.h>
-
 #include "DbTab.h"
 #include "HelperFunc.h"
 #include "dbExceptions.h"
-#include "../qt4/QtCore/qlist.h"
 
 namespace dbOverlay
 {

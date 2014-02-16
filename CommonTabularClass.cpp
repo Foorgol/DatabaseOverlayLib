@@ -10,8 +10,6 @@
  * don't use it at all.
  */
 
-#include <qt/QtCore/qjsonarray.h>
-
 #include "CommonTabularClass.h"
 #include "dbExceptions.h"
 #include "HelperFunc.h"

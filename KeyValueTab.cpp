@@ -11,8 +11,6 @@
  */
 
 #include <QString>
-#include <qt/QtCore/qstringlist.h>
-#include <qt/QtCore/qjsonarray.h>
 #include "KeyValueTab.h"
 #include "HelperFunc.h"
 

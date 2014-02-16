@@ -19,7 +19,6 @@
 #include <QFile>
 #include <QtSql>
 #include <QtSql/QSqlError>
-#include <qt/QtCore/qstringlist.h>
 
 using namespace std;
 

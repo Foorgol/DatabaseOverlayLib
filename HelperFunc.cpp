@@ -15,7 +15,6 @@
 #include <QtCore>
 #include <QStringList>
 #include <QVariantList>
-#include <qt/QtCore/qjsonarray.h>
 #include <stdexcept>
 
 namespace dbOverlay
