@@ -54,27 +54,6 @@ namespace dbOverlay
 //----------------------------------------------------------------------------
   
   /**
-   * Explicit copy constructor, because Q_OBJECT automatically disables default copy constructors
-   */
-  GenericDatabase::GenericDatabase(const GenericDatabase& other) :
-          internalConnectionName(other.internalConnectionName + "(copy)"),
-          log(other.log),
-          conn(other.conn),
-          dbUser(other.dbUser),
-          dbPasswd(other.dbPasswd),
-          dbName(other.dbName),
-          dbType(other.dbType),
-          dbServer(other.dbServer),
-          dbPort(other.dbPort),
-          queryCounter(other.queryCounter)
-  {
-
-  }
-
-
-//----------------------------------------------------------------------------
-  
-  /**
    * Does the real initialization work. Is called from various constructors with different
    * parameter combinations.
    * 

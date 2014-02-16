@@ -21,9 +21,8 @@
 
 #include "Logger.h"
 
-class BasicTestClass : public QObject, public CppUnit::TestFixture
+class BasicTestClass : public CppUnit::TestFixture
 {
-  Q_OBJECT
 
 public:
   virtual void setUp ();

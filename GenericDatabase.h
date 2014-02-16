@@ -25,10 +25,8 @@ namespace dbOverlay
   // forward def for DbTab as return type (see below)
   class DbTab;
 
-  class GenericDatabase : public QObject
+  class GenericDatabase
   {
-
-    Q_OBJECT
 
   public:
     /**
@@ -44,7 +42,6 @@ namespace dbOverlay
     GenericDatabase ();
     GenericDatabase(QString sqliteFileName, bool createNew);
     GenericDatabase(DB_ENGINE t, QString srv, int port, QString name, QString user, QString pw);
-    GenericDatabase (const GenericDatabase& other);
     
     virtual ~GenericDatabase ();
     
