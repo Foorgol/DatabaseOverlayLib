@@ -278,6 +278,26 @@ void tstCommonTabularClass::testGetMatchCountForColumnValue()
 
 //----------------------------------------------------------------------------
 
+void tstCommonTabularClass::testGetLength()
+{
+  printStartMsg("testGetLength");
+  
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  CommonTabularClass t1(&db, "t1");
+  CommonTabularClass t2(&db, "t2");
+  CommonTabularClass v1(&db, "v1", true);
+  
+  // test normal table
+  CPPUNIT_ASSERT(t1.length() == 5);
+  
+  // test empty table
+  CPPUNIT_ASSERT(t2.length() == 0);
+  
+  // test view
+  CPPUNIT_ASSERT(v1.length() == 3);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

@@ -265,6 +265,11 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  int CommonTabularClass::length() const
+  {
+    QString sql = "SELECT count(*) FROM " + tabName;
+    return (db->execScalarQuery(sql)).toInt();
+  }
 
 //----------------------------------------------------------------------------
 
