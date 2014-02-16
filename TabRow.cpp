@@ -225,6 +225,12 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  bool TabRow::update(const QString& colName, const QVariant& newVal)
+  {
+    QVariantList qvl;
+    qvl << colName << newVal;
+    return update(qvl);
+  }
 
 //----------------------------------------------------------------------------
 

@@ -28,6 +28,7 @@ namespace dbOverlay
     virtual ~TabRow ();
     int getId();
     bool update(const QVariantList& args);
+    bool update(const QString& colName, const QVariant& newVal);
     QVariant operator[](const QString& colName);
     
   protected:
