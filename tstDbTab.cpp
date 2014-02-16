@@ -208,6 +208,56 @@ void tstDbTab::testGetRowsByWhereClause()
 
 //----------------------------------------------------------------------------
 
+void tstDbTab::testGetRowsByColumnValue()
+{
+  printStartMsg("testGetRowsByColumnValue");
+
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  DbTab t1 = db["t1"];
+  
+  // test invalid or empty arguments list
+  QVariantList qvl;
+  CPPUNIT_ASSERT_THROW(t1.getRowsByColumnValue(qvl), std::invalid_argument);
+
+  qvl << "Odd number of parameters makes no sense";
+  CPPUNIT_ASSERT_THROW(t1.getRowsByColumnValue(qvl), std::invalid_argument);
+
+  qvl.clear();
+  qvl << "InvalidColName";
+  qvl << "42";
+  CPPUNIT_ASSERT_THROW(t1.getRowsByColumnValue(qvl), std::invalid_argument);
+  
+  // test valid query with parameters
+  qvl.clear();
+  qvl << "i";
+  qvl << 84;
+  DbTab::CachingRowIterator i = t1.getRowsByColumnValue(qvl);
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 3);
+  CPPUNIT_ASSERT(!i.isEnd());
+  
+  // two parameters, ANDed, incl. NULL
+  qvl.clear();
+  qvl << "i";
+  qvl << 84;
+  qvl << "f";
+  qvl << QVariant::Int;
+  i = t1.getRowsByColumnValue(qvl);
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 2);
+  CPPUNIT_ASSERT(!i.isEnd());
+
+  // test a query that matches zero rows
+  qvl.clear();
+  qvl << "i";
+  qvl << 5000;
+  i = t1.getRowsByColumnValue(qvl);
+  CPPUNIT_ASSERT(!i.isValid());
+  CPPUNIT_ASSERT(i.length() == 0);
+  CPPUNIT_ASSERT(i.isEnd());
+
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 
