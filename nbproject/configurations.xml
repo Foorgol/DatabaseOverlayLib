@@ -161,6 +161,7 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <qt>
+        <version>0.1.0</version>
         <buildMode>1</buildMode>
         <modules>core gui widgets sql</modules>
       </qt>
@@ -179,17 +180,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="BasicTestClass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="BasicTestClass.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="CommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="CommonTabularClass.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="DatabaseTestScenario.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="DatabaseTestScenario.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="DbTab.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -213,10 +206,6 @@
       </item>
       <item path="Logger.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="SampleDB.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="SampleDB.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="TabRow.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TabRow.h" ex="false" tool="3" flavor2="0">
@@ -224,26 +213,6 @@
       <item path="dbExceptions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="dbExceptions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstCommonTabularClass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstCommonTabularClass.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstDbTab.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstDbTab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstGenericDatabase.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstKeyValueTab.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstKeyValueTab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tstTabRow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tstTabRow.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="UnitTesting" type="4">

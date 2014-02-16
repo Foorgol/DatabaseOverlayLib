@@ -3,13 +3,13 @@
 TEMPLATE = lib
 DESTDIR = dist/Release/CLang-Linux-x86
 TARGET = DatabaseOverlayLib
-VERSION = 1.0.0
+VERSION = 0.1.0
 CONFIG -= debug_and_release app_bundle lib_bundle
 CONFIG += dll release 
 PKGCONFIG +=
 QT = core gui widgets sql
-SOURCES += BasicTestClass.cpp CommonTabularClass.cpp DatabaseTestScenario.cpp DbTab.cpp GenericDatabase.cpp HelperFunc.cpp KeyValueTab.cpp Logger.cpp SampleDB.cpp TabRow.cpp dbExceptions.cpp tstCommonTabularClass.cpp tstDbTab.cpp tstGenericDatabase.cpp tstKeyValueTab.cpp tstTabRow.cpp
-HEADERS += BasicTestClass.h CommonTabularClass.h DatabaseTestScenario.h DbTab.h GenericDatabase.h HelperFunc.h Integer.h KeyValueTab.h Logger.h SampleDB.h TabRow.h dbExceptions.h tstCommonTabularClass.h tstDbTab.h tstGenericDatabase.h tstKeyValueTab.h tstTabRow.h
+SOURCES += CommonTabularClass.cpp DbTab.cpp GenericDatabase.cpp HelperFunc.cpp KeyValueTab.cpp Logger.cpp TabRow.cpp dbExceptions.cpp
+HEADERS += CommonTabularClass.h DbTab.h GenericDatabase.h HelperFunc.h Integer.h KeyValueTab.h Logger.h TabRow.h dbExceptions.h
 FORMS +=
 RESOURCES +=
 TRANSLATIONS +=
