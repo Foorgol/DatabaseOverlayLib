@@ -261,6 +261,20 @@ void tstDbTab::testGetRowsByColumnValue()
 
 //----------------------------------------------------------------------------
 
+void tstDbTab::testGetAllRows()
+{
+  printStartMsg("testGetAllRows");
+
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  DbTab t1 = db["t1"];
+  
+  DbTab::CachingRowIterator i = t1.getAllRows();
+  CPPUNIT_ASSERT(i.isValid());
+  CPPUNIT_ASSERT(i.length() == 5);
+  CPPUNIT_ASSERT(!i.isEnd());
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

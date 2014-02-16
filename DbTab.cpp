@@ -256,6 +256,18 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  DbTab::CachingRowIterator DbTab::getAllRows() const
+  {
+    QString sql = "SELECT id FROM " + tabName;
+    QSqlQuery* qry = db->execContentQuery(sql);
+    if (qry == NULL) {
+      throw std::invalid_argument("getAllRows: invalid table, has no ID column!");
+    }
+    
+    DbTab::CachingRowIterator result = DbTab::CachingRowIterator(db, tabName, *qry);
+    delete qry;
+    return result;
+  }
 
 //----------------------------------------------------------------------------
 

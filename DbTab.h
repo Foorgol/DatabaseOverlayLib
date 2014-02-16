@@ -47,6 +47,7 @@ namespace dbOverlay
     TabRow operator[](const QVariantList& args );
     CachingRowIterator getRowsByWhereClause(const QString& where, const QVariantList& args = QVariantList()) const;
     CachingRowIterator getRowsByColumnValue(const QVariantList& args = QVariantList()) const;
+    CachingRowIterator getAllRows() const;
 
   private:
     static QHash<QString, DbTab> tabCache;
