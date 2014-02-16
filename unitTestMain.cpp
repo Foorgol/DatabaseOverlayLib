@@ -16,9 +16,10 @@
 #include "tstCommonTabularClass.h"
 #include "tstTabRow.h"
 #include "tstDbTab.h"
+#include "tstKeyValueTab.h"
 
 // comment / uncomment the following to execute just one suite
-#define TEST_ALL_SUITES
+//#define TEST_ALL_SUITES
 
 // Registers the fixture into the 'registry'
 #ifdef TEST_ALL_SUITES
@@ -28,8 +29,9 @@
   CPPUNIT_TEST_SUITE_REGISTRATION(tstCommonTabularClass);
   CPPUNIT_TEST_SUITE_REGISTRATION(tstTabRow);
   CPPUNIT_TEST_SUITE_REGISTRATION(tstDbTab);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstKeyValueTab);
 #else
-  CPPUNIT_TEST_SUITE_REGISTRATION(tstCommonTabularClass);
+  CPPUNIT_TEST_SUITE_REGISTRATION(tstKeyValueTab);
 #endif
 
 

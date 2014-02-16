@@ -31,6 +31,8 @@
       <itemPath>DbTab.h</itemPath>
       <itemPath>GenericDatabase.cpp</itemPath>
       <itemPath>GenericDatabase.h</itemPath>
+      <itemPath>KeyValueTab.cpp</itemPath>
+      <itemPath>KeyValueTab.h</itemPath>
       <itemPath>TabRow.cpp</itemPath>
       <itemPath>TabRow.h</itemPath>
     </logicalFolder>
@@ -51,6 +53,8 @@
       <itemPath>tstHelperFunc.h</itemPath>
       <itemPath>tstInteger.cpp</itemPath>
       <itemPath>tstInteger.h</itemPath>
+      <itemPath>tstKeyValueTab.cpp</itemPath>
+      <itemPath>tstKeyValueTab.h</itemPath>
       <itemPath>tstTabRow.cpp</itemPath>
       <itemPath>tstTabRow.h</itemPath>
       <itemPath>unitTestMain.cpp</itemPath>
@@ -109,6 +113,10 @@
       </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="KeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="KeyValueTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Logger.h" ex="false" tool="3" flavor2="0">
@@ -136,6 +144,10 @@
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstGenericDatabase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstTabRow.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -193,6 +205,10 @@
       </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="KeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="KeyValueTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Logger.h" ex="false" tool="3" flavor2="0">
@@ -220,6 +236,10 @@
       <item path="tstGenericDatabase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstGenericDatabase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstTabRow.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -272,6 +292,10 @@
       </item>
       <item path="Integer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="KeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="KeyValueTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Logger.h" ex="false" tool="3" flavor2="0">
@@ -307,6 +331,10 @@
       <item path="tstInteger.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tstInteger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tstKeyValueTab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tstTabRow.cpp" ex="false" tool="1" flavor2="0">
       </item>
