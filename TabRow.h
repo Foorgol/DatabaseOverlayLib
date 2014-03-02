@@ -35,6 +35,14 @@ namespace dbOverlay
     bool update(const QVariantList& args);
     bool update(const QString& colName, const QVariant& newVal);
     QVariant operator[](const QString& colName);
+    inline bool operator== (const TabRow& other) const
+    {
+      return ((other.tabName == tabName) && (other.rowId == rowId));   // do not check database handle here to allow comparision between different instances that share the same db
+    }
+    inline bool operator!= (const TabRow& other) const
+    {
+      return (!(this->operator == (other)));
+    }
     
   protected:
     /**
