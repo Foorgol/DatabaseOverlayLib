@@ -25,6 +25,7 @@ using namespace std;
 namespace dbOverlay
 {
   int GenericDatabase::connectionCounter = 0;
+  const int GenericDatabase::MYSQL_DEFAULT_PORT = 3306;
 
   /**
    * Creates a new database instance and connects to the DBMS

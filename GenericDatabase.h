@@ -83,9 +83,9 @@ namespace dbOverlay
     void dumpSuccessInfo(QSqlQuery *qry, int result);
     static int connectionCounter;
     QString internalConnectionName;
+    static const int MYSQL_DEFAULT_PORT;
 
   protected:
-    const int MYSQL_DEFAULT_PORT = 3306;
 
     /**
      * A logger for error messages
@@ -130,7 +130,7 @@ namespace dbOverlay
     /**
      * A counter for executed queries; for debugging purposes only
      */
-    long queryCounter = 0;
+    long queryCounter;
 
     static const int FAKED_PORT_NUM_FOR_CREATING_NEW_SQLITE_FILE = -100;
     static const int FAKED_PORT_NUM_FOR_OPENING_EXISTING_SQLITE_FILE = -200;
