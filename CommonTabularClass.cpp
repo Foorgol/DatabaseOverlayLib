@@ -10,6 +10,8 @@
  * don't use it at all.
  */
 
+#include <qt/QtCore/qjsonarray.h>
+
 #include "CommonTabularClass.h"
 #include "dbExceptions.h"
 #include "HelperFunc.h"
@@ -276,6 +278,15 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  int CommonTabularClass::getMatchCountForColumnValue(const QString& col, const QVariant& val) const
+  {
+    QVariantList qvl;
+    
+    qvl << col;
+    qvl << val;
+    
+    return getMatchCountForColumnValue(qvl);
+  }
 
 //----------------------------------------------------------------------------
 

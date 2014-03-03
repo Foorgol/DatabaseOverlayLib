@@ -60,6 +60,7 @@ namespace dbOverlay
     int getMatchCountForWhereClause(const QString& where, const QVariantList& args) const;
     int getMatchCountForWhereClause(const QString& where) const;
     int getMatchCountForColumnValue(const QVariantList& args) const;
+    int getMatchCountForColumnValue(const QString& col, const QVariant& val) const;
     int length() const;
 
   protected:
