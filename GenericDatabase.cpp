@@ -12,6 +12,7 @@
 
 #include "GenericDatabase.h"
 #include "HelperFunc.h"
+#include "DbTab.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -118,6 +119,10 @@ namespace dbOverlay
       // and disable synchronous writes for better performance
       execNonQuery("PRAGMA foreign_keys = ON");
       enforceSynchronousWrites(false);
+      
+      // clear the tab cache, because other database instances may have
+      // been opened before
+      DbTab::clearTabCache();
     }
     
     else if (t == MYSQL)

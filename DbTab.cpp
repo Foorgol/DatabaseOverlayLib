@@ -10,6 +10,8 @@
  * don't use it at all.
  */
 
+#include <qt/QtCore/qjsonarray.h>
+
 #include "DbTab.h"
 #include "HelperFunc.h"
 #include "dbExceptions.h"
@@ -273,12 +275,46 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  TabRow DbTab::getSingleRowByColumnValue(const QVariantList& args) const
+  {
+    DbTab::CachingRowIterator it = getRowsByColumnValue(args);
+    if (!(it.isValid()))
+    {
+      throw std::invalid_argument("getSingleRowByColumnValue: no match!");
+    }
+    if (it.length() == 0)
+    {
+      throw std::invalid_argument("getSingleRowByColumnValue: no match!");
+    }
+    
+    return (*it);
+  }
 
 //----------------------------------------------------------------------------
 
+  TabRow DbTab::getSingleRowByColumnValue(const QString& col, const QVariant& val) const
+  {
+    QVariantList qvl;
+    qvl << col << val;
+    return getSingleRowByColumnValue(qvl);
+  }
 
 //----------------------------------------------------------------------------
 
+  TabRow DbTab::getSingleRowByWhereClause(const QString& where, const QVariantList& args) const
+  {
+    DbTab::CachingRowIterator it = getRowsByWhereClause(where, args);
+    if (!(it.isValid()))
+    {
+      throw std::invalid_argument("getSingleRowByWhereClause: no match!");
+    }
+    if (it.length() == 0)
+    {
+      throw std::invalid_argument("getSingleRowByWhereClause: no match!");
+    }
+    
+    return (*it);
+  }
 
 //----------------------------------------------------------------------------
 

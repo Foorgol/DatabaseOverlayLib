@@ -50,6 +50,9 @@ namespace dbOverlay
     int insertRow();
     TabRow operator[](const int id);
     TabRow operator[](const QVariantList& args );
+    TabRow getSingleRowByColumnValue(const QVariantList& args = QVariantList()) const;
+    TabRow getSingleRowByColumnValue(const QString& col, const QVariant& val) const;
+    TabRow getSingleRowByWhereClause(const QString& where, const QVariantList& args = QVariantList()) const;
     CachingRowIterator getRowsByWhereClause(const QString& where, const QVariantList& args = QVariantList()) const;
     CachingRowIterator getRowsByColumnValue(const QVariantList& args = QVariantList()) const;
     CachingRowIterator getAllRows() const;
