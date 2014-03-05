@@ -43,6 +43,7 @@ namespace dbOverlay
     {
       return (!(this->operator == (other)));
     }
+    GenericDatabase getDb();
     
   protected:
     /**
