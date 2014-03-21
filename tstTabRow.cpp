@@ -252,6 +252,26 @@ void tstTabRow::testColumnAccess()
 
 //----------------------------------------------------------------------------
 
+void tstTabRow::testErase()
+{
+  printStartMsg("testErase");
+
+  SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
+  TabRow r = db["t1"][3];
+  
+  // test number of entries before and after delete
+  CPPUNIT_ASSERT(db["t1"].length() == 5);
+  CPPUNIT_ASSERT(r.erase());
+  CPPUNIT_ASSERT(db["t1"].length() == 4);
+  
+  // make sure the ID is invalid
+  CPPUNIT_ASSERT(r.getId() < 0);
+  
+  // make sure the row with ID 3 doesn't exist anymore
+  CPPUNIT_ASSERT_THROW(r = db["t1"][3], InvalidRowQualifierException);
+  
+  printEndMsg();
+}
 
 //----------------------------------------------------------------------------
 

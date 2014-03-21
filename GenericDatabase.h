@@ -71,7 +71,7 @@ namespace dbOverlay
     void resetQueryCounter();
     bool hasTable(const QString& name, bool isView=false);
     bool hasView(const QString& name);
-    static QString genForeignKeyClause(QString keyName, QString referedTable);
+    QString genForeignKeyClause(QString keyName, QString referedTable);
     DB_ENGINE getDbType();
     DbTab getTab(const QString& name);
     DbTab operator[](const QString& name);
@@ -84,6 +84,7 @@ namespace dbOverlay
     static int connectionCounter;
     QString internalConnectionName;
     static const int MYSQL_DEFAULT_PORT;
+    QStringList foreignKeyCreationCache;
 
   protected:
 

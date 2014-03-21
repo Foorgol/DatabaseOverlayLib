@@ -119,10 +119,6 @@ namespace dbOverlay
       // and disable synchronous writes for better performance
       execNonQuery("PRAGMA foreign_keys = ON");
       enforceSynchronousWrites(false);
-      
-      // clear the tab cache, because other database instances may have
-      // been opened before
-      DbTab::clearTabCache();
     }
     
     else if (t == MYSQL)
@@ -158,6 +154,13 @@ namespace dbOverlay
       log.critical(msg);
       throw runtime_error(QString2String(msg));
     }
+
+    // clear the tab cache, because other database instances may have
+    // been opened before
+    DbTab::clearTabCache();
+    
+    // prepare a cache for foreign key clauses during table creation
+    foreignKeyCreationCache.clear();
 
   }
 
@@ -353,6 +356,11 @@ namespace dbOverlay
     else  sql += "AUTOINCREMENT";
     
     sql += ", " + commaSepStringFromList(colDefs);
+    
+    if (foreignKeyCreationCache.length() != 0) {
+      sql += ", " + commaSepStringFromList(foreignKeyCreationCache);
+      foreignKeyCreationCache.clear();
+    }
 
     sql += ");";
     execNonQuery(sql);
@@ -476,7 +484,8 @@ namespace dbOverlay
    */
   QString GenericDatabase::genForeignKeyClause(QString keyName, QString referedTable)
   {
-    return keyName + " INTEGER, FOREIGN KEY (" + keyName + ") REFERENCES " + referedTable + "(id)";
+    foreignKeyCreationCache << "FOREIGN KEY (" + keyName + ") REFERENCES " + referedTable + "(id)";
+    return keyName + " INTEGER";
   }
     
 //----------------------------------------------------------------------------

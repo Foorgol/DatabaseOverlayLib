@@ -27,12 +27,17 @@ namespace dbOverlay
     QHash<QString, DbTab>::const_iterator i = tabCache.find(_tabName);
     while (i != tabCache.end())
     {
-      if ((*i).db == _db)
+      if (((*i).db == _db) && ((*i).tabName == _tabName))
       {
         return (*i);
       }
       
       i++;
+    }
+    
+    if (tabCache.keys().contains(_tabName))
+    {
+      tabCache.remove(_tabName);
     }
     
     DbTab newTab(_db, _tabName);
@@ -260,6 +265,16 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  DbTab::CachingRowIterator DbTab::getRowsByColumnValue(const QString& col, const QVariant& val) const
+  {
+    QVariantList qvl;
+    qvl << col << val;
+
+    return getRowsByColumnValue(qvl);
+  }
+
+//----------------------------------------------------------------------------
+
   DbTab::CachingRowIterator DbTab::getAllRows() const
   {
     QString sql = "SELECT id FROM " + tabName;
@@ -318,12 +333,33 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
+  int DbTab::deleteRowsByWhereClause(const QString& where, const QVariantList& args) const
+  {
+    QString sql = "DELETE FROM " + tabName + " WHERE " + where;
+    return db->execNonQuery(sql, args);
+  }
 
 //----------------------------------------------------------------------------
 
+  int DbTab::deleteRowsByColumnValue(const QVariantList& args) const
+  {
+    QVariantList qvl;
+    
+    qvl = prepWhereClause(args);  // don't catch exception, forward them to caller
+    
+    QString sql = "DELETE FROM " + tabName + " WHERE " + qvl.at(0).toString();
+    qvl.removeFirst();
+    return db->execNonQuery(sql, qvl);
+  }
 
 //----------------------------------------------------------------------------
 
+  int DbTab::deleteRowsByColumnValue(const QString& col, const QVariant& val) const
+  {
+    QVariantList qvl;
+    qvl << col << val;
+    return deleteRowsByColumnValue(qvl);
+  }
 
 //----------------------------------------------------------------------------
 

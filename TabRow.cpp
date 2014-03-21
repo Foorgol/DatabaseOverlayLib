@@ -155,7 +155,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  int TabRow::getId()
+  int TabRow::getId() const
   {
     return rowId;
   }
@@ -207,7 +207,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  QVariant TabRow::operator [](const QString& colName)
+  QVariant TabRow::operator [](const QString& colName) const
   {
     if ((colName == NULL) || (colName.length() == 0))
     {
@@ -237,13 +237,26 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  GenericDatabase TabRow::getDb()
+  GenericDatabase* TabRow::getDb()
   {
-    return *db;
+    return db;
   }
 
 //----------------------------------------------------------------------------
 
+  bool TabRow::erase()
+  {
+    QString sql = "DELETE FROM " + tabName + " WHERE id = " + QString::number(rowId);
+    bool success = (db->execNonQuery(sql) != 0);
+    
+    // make this instance unusable by setting the ID to an invalid value
+    if (success)
+    {
+      rowId = -1;
+    }
+    
+    return success;
+  }
 
 //----------------------------------------------------------------------------
 

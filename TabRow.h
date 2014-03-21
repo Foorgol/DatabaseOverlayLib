@@ -31,10 +31,10 @@ namespace dbOverlay
     TabRow (GenericDatabase* db, const QString& _tabName, const QVariantList& params);
     //TabRow (const TabRow& orig);
     virtual ~TabRow ();
-    int getId();
+    int getId() const;
     bool update(const QVariantList& args);
     bool update(const QString& colName, const QVariant& newVal);
-    QVariant operator[](const QString& colName);
+    QVariant operator[](const QString& colName) const;
     inline bool operator== (const TabRow& other) const
     {
       return ((other.tabName == tabName) && (other.rowId == rowId));   // do not check database handle here to allow comparision between different instances that share the same db
@@ -43,7 +43,8 @@ namespace dbOverlay
     {
       return (!(this->operator == (other)));
     }
-    GenericDatabase getDb();
+    GenericDatabase* getDb();
+    bool erase();
     
   protected:
     /**
