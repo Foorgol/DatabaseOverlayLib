@@ -162,7 +162,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  bool TabRow::update(const QVariantList& args)
+  bool TabRow::update(const QVariantList& args) const
   {
     if (args.length() == 0)
     {
@@ -228,7 +228,7 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  bool TabRow::update(const QString& colName, const QVariant& newVal)
+  bool TabRow::update(const QString& colName, const QVariant& newVal) const
   {
     QVariantList qvl;
     qvl << colName << newVal;
