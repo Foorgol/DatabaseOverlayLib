@@ -236,7 +236,7 @@ void tstGenericDatabase::testExecContentQuery()
   SampleDB db = getScenario01(dbOverlay::GenericDatabase::SQLITE);
   
   // test invalid query
-  QSqlQuery* result = db.execContentQuery("sdkfhsdkf");
+  unique_ptr<QSqlQuery> result = db.execContentQuery("sdkfhsdkf");
   CPPUNIT_ASSERT(result == NULL);
   
   // test query that returns no data
@@ -246,7 +246,6 @@ void tstGenericDatabase::testExecContentQuery()
   result = db.execContentQuery("SELECT id FROM t1 WHERE i>?", params);
   CPPUNIT_ASSERT(result != NULL);
   CPPUNIT_ASSERT(!result->first());
-  delete result;
   
   // test valid query with result
   params.clear();
@@ -256,7 +255,6 @@ void tstGenericDatabase::testExecContentQuery()
   CPPUNIT_ASSERT(result->first());
   CPPUNIT_ASSERT(result->value(0).toInt() == 3);
   CPPUNIT_ASSERT(!result->next());
-  delete result;
   
   // test valid query with result that contains more than one row
   result = db.execContentQuery("SELECT * FROM t1 WHERE f IS NULL");
@@ -270,7 +268,6 @@ void tstGenericDatabase::testExecContentQuery()
   CPPUNIT_ASSERT(result->value(1).toInt() == 84);
   CPPUNIT_ASSERT(result->value(3).toString() == "Hoi");
   CPPUNIT_ASSERT(!result->next());
-  delete result;
   
   printEndMsg();
 }
