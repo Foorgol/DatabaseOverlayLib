@@ -10,7 +10,7 @@
  * don't use it at all.
  */
 
-#include <qt/QtCore/qjsonarray.h>
+#include <QtCore/qjsonarray.h>
 
 #include "DbTab.h"
 #include "HelperFunc.h"

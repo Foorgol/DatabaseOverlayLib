@@ -37,7 +37,7 @@ namespace dbOverlay
   {
     string msg = "The logging level ";
 
-    msg += to_string(lvl);
+    msg += std::to_string(lvl);
 
     msg += " is invalid";
     return msg.c_str();
