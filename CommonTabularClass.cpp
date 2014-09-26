@@ -84,7 +84,7 @@ namespace dbOverlay
   ColInfoList CommonTabularClass::allColDefs() const
   {
     ColInfoList result;
-    QSqlQuery* qry;
+    unique_ptr<QSqlQuery> qry;
     
     if (db->getDbType() == GenericDatabase::SQLITE)
     {
@@ -109,8 +109,6 @@ namespace dbOverlay
       }
       
     }
-    
-    delete qry;
     
     return result;
   }

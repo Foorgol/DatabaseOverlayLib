@@ -11,6 +11,7 @@
  */
 
 #include <QtCore/qjsonarray.h>
+#include <memory>
 
 #include "DbTab.h"
 #include "HelperFunc.h"
@@ -233,13 +234,12 @@ namespace dbOverlay
   DbTab::CachingRowIterator DbTab::getRowsByWhereClause(const QString& where, const QVariantList& args) const
   {
     QString sql = "SELECT id FROM " + tabName + " WHERE " + where;
-    QSqlQuery* qry = db->execContentQuery(sql, args);
+    unique_ptr<QSqlQuery> qry = unique_ptr<QSqlQuery>(db->execContentQuery(sql, args));
     if (qry == NULL) {
       throw std::invalid_argument("getRowsByWhereClause: invalid query!");
     }
     
     DbTab::CachingRowIterator result = DbTab::CachingRowIterator(db, tabName, *qry);
-    delete qry;
     return result;
   }
 
@@ -253,13 +253,12 @@ namespace dbOverlay
     
     QString sql = "SELECT id FROM " + tabName + " WHERE " + qvl.at(0).toString();
     qvl.removeFirst();
-    QSqlQuery* qry = db->execContentQuery(sql, qvl);
+    unique_ptr<QSqlQuery> qry = unique_ptr<QSqlQuery>(db->execContentQuery(sql, qvl));
     if (qry == NULL) {
       throw std::invalid_argument("getRowsByColumnValue: invalid query!");
     }
     
     DbTab::CachingRowIterator result = DbTab::CachingRowIterator(db, tabName, *qry);
-    delete qry;
     return result;
   }
 
@@ -278,13 +277,12 @@ namespace dbOverlay
   DbTab::CachingRowIterator DbTab::getAllRows() const
   {
     QString sql = "SELECT id FROM " + tabName;
-    QSqlQuery* qry = db->execContentQuery(sql);
+    unique_ptr<QSqlQuery> qry = unique_ptr<QSqlQuery>(db->execContentQuery(sql));
     if (qry == NULL) {
       throw std::invalid_argument("getAllRows: invalid table, has no ID column!");
     }
     
     DbTab::CachingRowIterator result = DbTab::CachingRowIterator(db, tabName, *qry);
-    delete qry;
     return result;
   }
 

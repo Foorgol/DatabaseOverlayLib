@@ -195,7 +195,7 @@ namespace dbOverlay
   
   int GenericDatabase::execNonQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = execContentQuery(baseSqlStatement, params);
+    unique_ptr<QSqlQuery> qry = execContentQuery(baseSqlStatement, params);
     
     if (qry == NULL)
     {
@@ -212,8 +212,6 @@ namespace dbOverlay
       result = qry->numRowsAffected();
     }
     
-    delete qry;
-    
     return result;
   }
     
@@ -221,7 +219,7 @@ namespace dbOverlay
 
   QVariant GenericDatabase::execScalarQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = execContentQuery(baseSqlStatement, params);
+    unique_ptr<QSqlQuery> qry = execContentQuery(baseSqlStatement, params);
     
     if (qry == NULL)
     {
@@ -231,20 +229,18 @@ namespace dbOverlay
     if (!(qry->first()))
     {
       log.warn("Scalar Query returned no data!" + QString("\n") + "     " + qry->lastQuery() + QString("\n"));
-      delete qry;
       return QVariant(); // invalid QVariant indicates error
     }
     
     QVariant result = qry->value(0);
-    delete qry;
     return result;
   }
     
 //----------------------------------------------------------------------------
 
-  QSqlQuery* GenericDatabase::execContentQuery(const QString& baseSqlStatement, const QVariantList& params)
+  unique_ptr<QSqlQuery> GenericDatabase::execContentQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = prepStatement(baseSqlStatement, params);
+    unique_ptr<QSqlQuery> qry = prepStatement(baseSqlStatement, params);
     
     bool ok = qry->exec();
     queryCounter++;
@@ -252,7 +248,6 @@ namespace dbOverlay
     if (!ok)
     {
       dumpError(qry);
-      delete qry;
       return NULL;
     }
     
@@ -273,7 +268,7 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
-  void GenericDatabase::dumpError(QSqlQuery *qry, bool throwException)
+  void GenericDatabase::dumpError(unique_ptr<QSqlQuery> const &qry, bool throwException)
   {
     QString msg = "The following SQL query failed: " + QString("\n");
     msg += "     " + qry->lastQuery() + QString("\n");
@@ -288,7 +283,7 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
-  void GenericDatabase::dumpSuccessInfo(QSqlQuery *qry, int result)
+  void GenericDatabase::dumpSuccessInfo(unique_ptr<QSqlQuery> const &qry, int result)
   {
     QString msg = "The following SQL query was successfully executed: " + QString("\n");
     msg += "     " + qry->lastQuery() + QString("\n");
@@ -298,9 +293,9 @@ namespace dbOverlay
     
 //----------------------------------------------------------------------------
 
-  QSqlQuery* GenericDatabase::prepStatement(const QString& baseSqlStatement, const QVariantList& params)
+  unique_ptr<QSqlQuery> GenericDatabase::prepStatement(const QString& baseSqlStatement, const QVariantList& params)
   {
-    QSqlQuery *qry = new QSqlQuery(conn);
+    unique_ptr<QSqlQuery> qry = unique_ptr<QSqlQuery>(new QSqlQuery(conn));
     
     qry->prepare(baseSqlStatement);
     

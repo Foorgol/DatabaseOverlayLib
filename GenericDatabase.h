@@ -20,6 +20,7 @@
 #include <QList>
 #include <QStringList>
 #include <QVariant>
+#include <memory>
 
 #include "Logger.h"
 
@@ -53,7 +54,7 @@ namespace dbOverlay
     int execNonQuery(const QString& baseSqlStatement, const QVariantList& params);
     int execNonQuery(const QString& baseSqlStatement);
     QVariant execScalarQuery(const QString& baseSqlStatement, const QVariantList& params = QVariantList());
-    QSqlQuery* execContentQuery(const QString& baseSqlStatement, const QVariantList& params = QVariantList());
+    unique_ptr<QSqlQuery> execContentQuery(const QString& baseSqlStatement, const QVariantList& params = QVariantList());
     void enforceSynchronousWrites(bool syncOn);
     
     virtual void populateTables() = 0;
@@ -79,8 +80,8 @@ namespace dbOverlay
     
     
   private:
-    void dumpError(QSqlQuery *qry, bool throwException = false);
-    void dumpSuccessInfo(QSqlQuery *qry, int result);
+    void dumpError(unique_ptr<QSqlQuery> const &qry, bool throwException = false);
+    void dumpSuccessInfo(unique_ptr<QSqlQuery> const &qry, int result);
     static int connectionCounter;
     QString internalConnectionName;
     static const int MYSQL_DEFAULT_PORT;
@@ -138,7 +139,7 @@ namespace dbOverlay
     
     void initDB(DB_ENGINE t, QString srv, int port, QString name, QString user, QString pw);
     
-    QSqlQuery* prepStatement(const QString& baseSqlStatement, const QVariantList& params);
+    unique_ptr<QSqlQuery> prepStatement(const QString& baseSqlStatement, const QVariantList& params);
     
   };
 }
