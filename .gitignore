@@ -2,3 +2,7 @@
 /build/
 /nbproject
 moc_*
+*o
+libDatabaseOverlayLib.so*
+Makefile
+
