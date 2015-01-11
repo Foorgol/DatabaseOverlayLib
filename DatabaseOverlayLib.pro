@@ -12,6 +12,8 @@ TARGET = DatabaseOverlayLib
 TEMPLATE = lib
 QMAKE_CXXFLAGS += -std=c++11
 
+CONFIG += debug_and_release
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

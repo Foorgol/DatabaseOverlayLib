@@ -14,6 +14,7 @@
 #define	GENERICDATABASE_H
 
 #include <string>
+#include <mutex>
 #include <QtCore>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
@@ -77,6 +78,8 @@ namespace dbOverlay
     DbTab getTab(const QString& name);
     DbTab operator[](const QString& name);
     int getLastInsertId();
+
+    void setLogLevel(int newLvl);
     
     
   private:
@@ -97,7 +100,7 @@ namespace dbOverlay
     /**
      * The connection object for the database handled by this class
      */
-    QSqlDatabase conn;
+    mutable mutex dbMutex;
 
     /**
      * The user name for the database server

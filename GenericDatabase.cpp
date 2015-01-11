@@ -15,6 +15,7 @@
 #include "DbTab.h"
 #include <stdexcept>
 #include <iostream>
+#include <cassert>
 
 #include <QtCore>
 #include <QFile>
@@ -101,13 +102,21 @@ namespace dbOverlay
         throw runtime_error(QString2String(msg));
       }
 
-      conn = QSqlDatabase::addDatabase("QSQLITE", internalConnectionName);
-      conn.setDatabaseName(srv);
-      if (!conn.open())
+      // Acquire a lock on the database mutex before creating the new DB
+      //
+      // The mutex will be automatically unlocked when we leave this scope
       {
-        QString msg = "Database file " + srv + " could not be opened or created!";
-        log.critical(msg);
-        throw runtime_error(QString2String(msg));
+          lock_guard<mutex> mutexGuard{dbMutex};
+
+          QSqlDatabase conn = QSqlDatabase::addDatabase("QSQLITE", internalConnectionName);
+          assert(conn.isValid());
+          conn.setDatabaseName(srv);
+          if (!conn.open())
+          {
+              QString msg = "Database file " + srv + " could not be opened or created!";
+              log.critical(msg);
+              throw runtime_error(QString2String(msg));
+          }
       }
       
       log.info("Successfully opened / created database file " + srv);
@@ -133,17 +142,24 @@ namespace dbOverlay
         dbPort = MYSQL_DEFAULT_PORT;
       }
 
-      conn = QSqlDatabase::addDatabase("QMYSQL", internalConnectionName);
-      conn.setHostName(srv);
-      conn.setDatabaseName(dbName);
-      conn.setUserName(dbUser);
-      conn.setPassword(dbPasswd);
-      conn.setPort(dbPort);
-      if (!conn.open())
+      // Acquire a lock on the database mutex before creating the new DB
+      //
+      // The mutex will be automatically unlocked when we leave this scope
       {
-        QString msg = "Could not open database " + dbName + " on server " + srv;
-        log.critical(msg);
-        throw runtime_error(QString2String(msg));
+          lock_guard<mutex> mutexGuard{dbMutex};
+          QSqlDatabase conn = QSqlDatabase::addDatabase("QMYSQL", internalConnectionName);
+          assert(conn.isValid());
+          conn.setHostName(srv);
+          conn.setDatabaseName(dbName);
+          conn.setUserName(dbUser);
+          conn.setPassword(dbPasswd);
+          conn.setPort(dbPort);
+          if (!conn.open())
+          {
+              QString msg = "Could not open database " + dbName + " on server " + srv;
+              log.critical(msg);
+              throw runtime_error(QString2String(msg));
+          }
       }
       
       log.info("Successfully opened database " + dbName + " on server " + srv);
@@ -179,8 +195,19 @@ namespace dbOverlay
     
   void GenericDatabase::close()
   {
-    conn.close();
-    conn.removeDatabase(internalConnectionName);
+    lock_guard<mutex> mutexGuard{dbMutex};
+
+    // call the following two statements in a separate scope to make sure
+    // that "conn" goes out of scope before we remove the DB
+    // Otherwise we get warnings about pending queries when calling removeDatabase
+    {
+      QSqlDatabase conn = QSqlDatabase::database(internalConnectionName);
+      if (conn.isValid() && conn.isOpen())
+      {
+          conn.close();
+      }
+    }
+    QSqlDatabase::removeDatabase(internalConnectionName);
     log.info("Database connection to " + dbServer + " closed.");
   }
     
@@ -221,7 +248,7 @@ namespace dbOverlay
   {
     unique_ptr<QSqlQuery> qry = execContentQuery(baseSqlStatement, params);
     
-    if (qry == NULL)
+    if (qry == nullptr)
     {
       return QVariant(); // invalid QVariant indicates error
     }
@@ -240,7 +267,13 @@ namespace dbOverlay
 
   unique_ptr<QSqlQuery> GenericDatabase::execContentQuery(const QString& baseSqlStatement, const QVariantList& params)
   {
-    unique_ptr<QSqlQuery> qry = prepStatement(baseSqlStatement, params);
+    // all queries finally end up here. Make sure we are the only ones
+    // to access the database at a time
+    //
+    // The mutex will be automatically unlocked when we leave this function
+    lock_guard<mutex> mutexGuard{dbMutex};
+
+    unique_ptr<QSqlQuery> qry { prepStatement(baseSqlStatement, params)};
     
     bool ok = qry->exec();
     queryCounter++;
@@ -248,7 +281,7 @@ namespace dbOverlay
     if (!ok)
     {
       dumpError(qry);
-      return NULL;
+      return nullptr;
     }
     
     int result;
@@ -295,7 +328,14 @@ namespace dbOverlay
 
   unique_ptr<QSqlQuery> GenericDatabase::prepStatement(const QString& baseSqlStatement, const QVariantList& params)
   {
-    unique_ptr<QSqlQuery> qry = unique_ptr<QSqlQuery>(new QSqlQuery(conn));
+    QSqlDatabase conn = QSqlDatabase::database(internalConnectionName);
+    if (!(conn.isValid() && conn.isOpen()))
+    {
+        throw runtime_error("Attempt to access closed database!");
+    }
+
+    unique_ptr<QSqlQuery> qry {new QSqlQuery(conn) };
+    assert(qry != nullptr);
     
     qry->prepare(baseSqlStatement);
     
@@ -389,6 +429,7 @@ namespace dbOverlay
    */
   QStringList GenericDatabase::allTableNames(bool getViews)
   {
+    QSqlDatabase conn = QSqlDatabase::database(internalConnectionName);
     if (getViews)
     {
       log.info("Found views: " + commaSepStringFromList(conn.tables(QSql::Views)));
@@ -508,7 +549,11 @@ namespace dbOverlay
   }
 
 //----------------------------------------------------------------------------
-    
+
+  void GenericDatabase::setLogLevel(int newLvl)
+  {
+    log.setLevel(newLvl);
+  }
     
 //----------------------------------------------------------------------------
     
