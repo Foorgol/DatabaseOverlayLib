@@ -146,14 +146,14 @@ namespace dbOverlay
 
 //----------------------------------------------------------------------------
 
-  TabRow DbTab::operator [](const int id)
+  TabRow DbTab::operator [](const int id) const
   {
     return TabRow(db, tabName, id);
   }
 
 //----------------------------------------------------------------------------
 
-  TabRow DbTab::operator [](const QVariantList& args)
+  TabRow DbTab::operator [](const QVariantList& args) const
   {
     return TabRow(db, tabName, args);
   }

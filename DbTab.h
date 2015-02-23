@@ -48,8 +48,8 @@ namespace dbOverlay
     virtual ~DbTab ();
     int insertRow(const QVariantList& args);
     int insertRow();
-    TabRow operator[](const int id);
-    TabRow operator[](const QVariantList& args );
+    TabRow operator[](const int id) const;
+    TabRow operator[](const QVariantList& args ) const;
     TabRow getSingleRowByColumnValue(const QVariantList& args = QVariantList()) const;
     TabRow getSingleRowByColumnValue(const QString& col, const QVariant& val) const;
     TabRow getSingleRowByWhereClause(const QString& where, const QVariantList& args = QVariantList()) const;
