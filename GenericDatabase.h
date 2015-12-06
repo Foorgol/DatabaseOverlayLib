@@ -63,7 +63,10 @@ namespace dbOverlay
     
     void tableCreationHelper(const QString& tabName, const QList<QString>& colDefs);
     void viewCreationHelper(const QString& viewName, const QString& selectStmt);
-    
+    void indexCreationHelper(const QString& tabName, const QString& idxName, const QList<QString>& colNames, bool isUnique=false);
+    void indexCreationHelper(const QString& tabName, const QString& idxName, const QString& colName, bool isUnique=false);
+    void indexCreationHelper(const QString& tabName, const QString& colName, bool isUnique=false);
+
     void close();
     
     QStringList allTableNames(bool getViews=false);

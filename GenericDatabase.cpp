@@ -419,6 +419,43 @@ namespace dbOverlay
     execNonQuery(sql);
   }
 
+  //----------------------------------------------------------------------------
+
+  void GenericDatabase::indexCreationHelper(const QString& tabName, const QString& idxName, const QList<QString>& colNames, bool isUnique)
+  {
+    if (idxName.isEmpty()) return;
+    if (!(hasTable(tabName))) return;
+
+    QString sql = "CREATE ";
+    if (isUnique) sql += "UNIQUE ";
+    sql += "INDEX IF NOT EXISTS %1 ON %2 (%3)";
+    sql = sql.arg(idxName).arg(tabName).arg(commaSepStringFromList(colNames));
+    execNonQuery(sql);
+  }
+
+  //----------------------------------------------------------------------------
+
+  void GenericDatabase::indexCreationHelper(const QString& tabName, const QString& idxName, const QString& colName, bool isUnique)
+  {
+    QStringList cols;
+    cols << colName;
+    indexCreationHelper(tabName, idxName, cols, isUnique);
+  }
+
+  //----------------------------------------------------------------------------
+
+  void GenericDatabase::indexCreationHelper(const QString& tabName, const QString& colName, bool isUnique)
+  {
+    if (tabName.isEmpty()) return;
+    if (colName.isEmpty()) return;
+
+    // auto-create a canonical index name
+    QString idxName = "%1_%2";
+    idxName = idxName.arg(tabName).arg(colName);
+
+    indexCreationHelper(tabName, idxName, colName, isUnique);
+  }
+
 //----------------------------------------------------------------------------
 
   /**
