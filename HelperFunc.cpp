@@ -1,13 +1,19 @@
 /*
- * Copyright © 2014 Volker Knollmann
- * 
- * This work is free. You can redistribute it and/or modify it under the
- * terms of the Do What The Fuck You Want To Public License, Version 2,
- * as published by Sam Hocevar. See the COPYING file or visit
- * http://www.wtfpl.net/ for more details.
- * 
- * This program comes without any warranty. Use it at your own risk or
- * don't use it at all.
+ *    This is DatabaseOverlayLib, a database abstraction layer on top of Qt.
+ *    Copyright (C) 2014 - 2015  Volker Knollmann
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "HelperFunc.h"
