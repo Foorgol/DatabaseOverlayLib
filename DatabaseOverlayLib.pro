@@ -14,6 +14,8 @@ QMAKE_CXXFLAGS += -std=c++11
 
 CONFIG += debug_and_release
 
+VERSION = 0.3.0
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
